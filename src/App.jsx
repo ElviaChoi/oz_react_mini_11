@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import movieListData from "./data/movieListData.json";
+import MovieCard from "./components/MovieCard";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [movies] = useState(movieListData.results); //movieListData 에 있는 results
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <h1 className="text-xl font-bold mb-4 text-center">인기 영화 리스트</h1>
+
+      <div className="flex flex-wrap gap-4 justify-center">
+        {movies.map((movie) => (
+          <MovieCard
+            key={movie.id}
+            title={movie.title}
+            posterPath={movie.poster_path}
+            voteAverage={movie.vote_average}
+          />
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
