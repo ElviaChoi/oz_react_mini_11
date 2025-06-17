@@ -40,7 +40,7 @@ function MovieDetail() {
             <h2 style={{ fontSize: "20px", fontWeight: "bold" }}>
               {movie.title}
             </h2>
-            <p>평점: {movie.vote_average}</p>
+            <p>⭐ 평점: {movie.vote_average.toFixed(1)}</p>
           </div>
 
           {/* 장르 */}
