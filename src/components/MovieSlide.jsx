@@ -9,15 +9,15 @@ import MovieCard from "./MovieCard";
 function MovieSlide({ movies }) {
   return (
     <Swiper
-      modules={[Navigation, Pagination]} //필수: Swiper 기능 활성화
-      spaceBetween={10}
-      slidesPerView={6}
-      navigation
-      pagination={{ clickable: true }}
-      loop={true}
+      modules={[Navigation, Pagination]} // 필수: Swiper 기능 활성화
+      spaceBetween={12} // 슬라이드 간격 (px)
+      slidesPerView={5} // 한 화면에 보여줄 카드 개수
+      navigation // 좌우 화살표 네비게이션 사용
+      pagination={{ clickable: true }} // 페이지네이션 점 클릭 가능하게 설정
+      loop={true} // 슬라이드 무한 반복
     >
       {movies.map((movie, index) => (
-        <SwiperSlide key={movie.id} className={index === 0 ? "ml-18" : ""}>
+        <SwiperSlide key={movie.id} className={index === 0 ? "ml-16" : ""}>
           <div className="mb-12">
             <MovieCard
               title={movie.title}

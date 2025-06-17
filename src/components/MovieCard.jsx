@@ -17,7 +17,7 @@ function MovieCard({ title, posterPath, voteAverage }) {
       <img
         src={imageUrl}
         alt={title}
-        className="w-full h-[230px] object-cover rounded mb-2"
+        className="w-full h-[220px] object-cover rounded mb-2"
       />
       <h2 className="mt-2 font-semibold text-center h-[32px] overflow-hidden text-ellipsis whitespace-nowrap">
         {title}
