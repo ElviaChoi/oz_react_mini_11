@@ -1,10 +1,11 @@
 import { useState } from "react";
 import movieDetailData from "../data/movieDetailData.json";
+import { getImageUrl } from "../utils/getImageUrl"; // 이미지 경로
 
 function MovieDetail() {
   const [movie] = useState(movieDetailData);
 
-  const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+  const imageUrl = getImageUrl(movie.poster_path); // 이미지 경로 변경
   const genres = movie.genres.map((genre) => genre.name).join(", ");
 
   return (

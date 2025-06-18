@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { getImageUrl } from "../utils/getImageUrl"; // 이미지 경로
 
 function MovieCard({ title, posterPath, voteAverage }) {
   const navigate = useNavigate();
@@ -7,7 +8,7 @@ function MovieCard({ title, posterPath, voteAverage }) {
     navigate("/details");
   };
 
-  const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+  const imageUrl = getImageUrl(posterPath); //이미지 경로 변경
 
   return (
     <div
