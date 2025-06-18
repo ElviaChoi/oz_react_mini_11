@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import { getImageUrl } from "../utils/getImageUrl"; // 이미지 경로
+import { getImageUrl } from "../utils/getImageUrl";
 import { useParams } from "react-router-dom";
 import { getMovieDetailUrl, TMDB_GET_OPTION } from "../constants.js";
 
 function MovieDetail() {
-  const { id } = useParams(); // 경로에서 id 가져오는 부분
+  const { id } = useParams();
   const [movie, setMovie] = useState(undefined);
 
-  const imageUrl = movie ? getImageUrl(movie.poster_path) : ""; // 이미지 경로 변경
+  const imageUrl = movie ? getImageUrl(movie.poster_path) : "";
 
   let genres = "";
-
   if (movie && movie.genres) {
     const genreNames = movie.genres.map((genre) => genre.name);
     genres = genreNames.join(", ");
@@ -28,56 +27,42 @@ function MovieDetail() {
   return (
     <>
       {movie ? (
-        <div style={{ padding: "20px" }}>
-          <div
-            style={{
-              display: "flex",
-              gap: "20px",
-              maxWidth: "1000px",
-              margin: "0 auto",
-            }}
-          >
+        <section className="p-5">
+          <div className="flex flex-col md:flex-row gap-6 max-w-5xl mx-auto">
             {/* 왼쪽: 포스터 */}
-            <div>
+            <div className="flex-shrink-0">
               <img
                 src={imageUrl}
                 alt={movie.title}
-                style={{ width: "800px", borderRadius: "8px" }}
+                className="w-full md:w-[400px] rounded-lg"
               />
             </div>
 
             {/* 오른쪽: 정보들 */}
-            <div style={{ flexGrow: 1 }}>
+            <div className="flex-grow space-y-4">
               {/* 제목 + 평점 */}
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "10px",
-                }}
-              >
-                <h2 style={{ fontSize: "20px", fontWeight: "bold" }}>
-                  {movie.title}
-                </h2>
-                <p>⭐ 평점: {movie.vote_average.toFixed(1)}</p>
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold">{movie.title}</h2>
+                <p className="text-gray-700">
+                  ⭐ 평점: {movie.vote_average.toFixed(1)}
+                </p>
               </div>
 
               {/* 장르 */}
-              <div style={{ marginBottom: "10px" }}>
+              <div>
                 <strong>장르:</strong> {genres}
               </div>
 
               {/* 줄거리 */}
               <div>
                 <strong>줄거리</strong>
-                <p>{movie.overview}</p>
+                <p className="text-gray-800 mt-1">{movie.overview}</p>
               </div>
             </div>
           </div>
-        </div>
+        </section>
       ) : (
-        <div>로딩중</div>
+        <div className="text-center mt-10 text-lg text-gray-500">로딩중...</div>
       )}
     </>
   );
