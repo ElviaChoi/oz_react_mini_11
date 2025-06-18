@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getImageUrl } from "../utils/getImageUrl"; // 이미지 경로
 import { useParams } from "react-router-dom";
-import { getMovieDetailUrl, TMDB_GET_OPTION } from "../constans.js";
+import { getMovieDetailUrl, TMDB_GET_OPTION } from "../constants.js";
 
 function MovieDetail() {
   const { id } = useParams(); // 경로에서 id 가져오는 부분
