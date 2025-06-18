@@ -1,10 +1,21 @@
-import { useState } from "react";
-import movieListData from "../data/movieListData.json";
+import { useEffect, useState } from "react";
+import { getPopularMoviesUrl, TMDB_GET_OPTION } from "../constans.js";
 import MovieCard from "../components/MovieCard";
 import MovieSlide from "../components/MovieSlide";
 
 function MovieList() {
-  const [movies] = useState(movieListData.results);
+  const [movies, setMovies] = useState([]); // TMDb에서 받아온 영화 목록을 저장할 상태
+
+  useEffect(() => {
+    fetch(getPopularMoviesUrl(), TMDB_GET_OPTION)
+      .then((res) => res.json())
+      .then((data) => {
+        // 성인 콘텐츠 제외
+        const filtered = data.results.filter((movie) => movie.adult === false);
+        console.log(filtered);
+        setMovies(filtered);
+      });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 space-y-10">
