@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getImageUrl } from "../utils/getImageUrl"; // 이미지 경로
 import { useParams } from "react-router-dom";
-import { TMDB_MOVIE_API_BASE_URL, TMDB_GET_OPTION } from "../constans.js";
+import { getMovieDetailUrl, TMDB_GET_OPTION } from "../constans.js";
 
 function MovieDetail() {
   const { id } = useParams(); // 경로에서 id 가져오는 부분
@@ -17,7 +17,7 @@ function MovieDetail() {
   }
 
   useEffect(() => {
-    fetch(`${TMDB_MOVIE_API_BASE_URL}/${id}?language=ko`, TMDB_GET_OPTION)
+    fetch(getMovieDetailUrl(id), TMDB_GET_OPTION)
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
