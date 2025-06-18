@@ -5,15 +5,24 @@ import { TMDB_MOVIE_API_BASE_URL, TMDB_GET_OPTION } from "../constans.js";
 
 function MovieDetail() {
   const { id } = useParams(); // 경로에서 id 가져오는 부분
-  const [movie, setMovie] = useState(null);
+  const [movie, setMovie] = useState(undefined);
 
-  const imageUrl = getImageUrl(movie.poster_path); // 이미지 경로 변경
-  const genres = movie.genres.map((genre) => genre.name).join(", ");
+  const imageUrl = movie ? getImageUrl(movie.poster_path) : ""; // 이미지 경로 변경
+
+  let genres = "";
+
+  if (movie && movie.genres) {
+    const genreNames = movie.genres.map((genre) => genre.name);
+    genres = genreNames.join(", ");
+  }
 
   useEffect(() => {
-    fetch(`${TMDB_MOVIE_API_BASE_URL})/${id}?language=ko`, TMDB_GET_OPTION)
+    fetch(`${TMDB_MOVIE_API_BASE_URL}/${id}?language=ko`, TMDB_GET_OPTION)
       .then((res) => res.json())
-      .then((res) => console.log(res));
+      .then((res) => {
+        console.log(res);
+        setMovie(res);
+      });
   }, [id]);
 
   return (
@@ -73,6 +82,5 @@ function MovieDetail() {
     </>
   );
 }
-import { TMDB_MOVIE_API_BASE_URL } from "../constans";
 
 export default MovieDetail;

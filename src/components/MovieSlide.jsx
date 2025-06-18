@@ -20,6 +20,7 @@ function MovieSlide({ movies }) {
         <SwiperSlide key={movie.id} className={index === 0 ? "ml-16" : ""}>
           <div className="mb-12">
             <MovieCard
+              id={movie.id}
               title={movie.title}
               posterPath={movie.poster_path}
               voteAverage={movie.vote_average}
