@@ -1,8 +1,10 @@
 import { useState } from "react";
 import movieDetailData from "../data/movieDetailData.json";
 import { getImageUrl } from "../utils/getImageUrl"; // 이미지 경로
+import { useParams } from "react-router-dom";
 
 function MovieDetail() {
+  const { id } = useParams(); // 경로에서 id 가져오는 부분
   const [movie] = useState(movieDetailData);
 
   const imageUrl = getImageUrl(movie.poster_path); // 이미지 경로 변경
