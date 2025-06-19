@@ -8,7 +8,7 @@ function useDebounce(value, delay = 500) {
       setDebounced(value);
     }, delay);
 
-    return () => clearTimeout(timer); // 클린업
+    return () => clearTimeout(timer); // 클린업 함수
   }, [value, delay]);
 
   return debounced;
