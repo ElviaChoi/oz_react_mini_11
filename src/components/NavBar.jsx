@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useDebounce from "../hooks/useDebounce";
 
 function NavBar() {
   const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const navigate = useNavigate();
 
   // 검색어가 입력될 때 상태 업데이트
@@ -10,14 +12,19 @@ function NavBar() {
     setSearchTerm(e.target.value);
   };
 
-  // 엔터를 누르면 검색 실행
+  // 엔터와 searchTerm 발생하면 검색 실행
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      if (searchTerm) {
-        navigate(`/search?query=${searchTerm}`);
-      }
+    if (e.key === "Enter" && searchTerm) {
+      navigate(`/search?query=${searchTerm}`);
     }
   };
+
+  // 디바운스된 검색어가 바뀔 때마다 자동으로 검색 페이지 이동
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      navigate(`/search?query=${debouncedSearchTerm}`);
+    }
+  }, [debouncedSearchTerm, navigate]);
 
   return (
     <nav className="bg-black text-white px-6 py-4 flex items-center justify-between">

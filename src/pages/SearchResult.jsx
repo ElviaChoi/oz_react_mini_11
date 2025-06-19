@@ -40,7 +40,6 @@ function SearchResult() {
             />
           ))
         ) : (
-          // 결과가 없다면 안내 문구 출력
           <p className="text-gray-500">검색 결과가 없습니다.</p>
         )}
       </div>
