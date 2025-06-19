@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getImageUrl } from "../utils/getImageUrl";
 import { useParams } from "react-router-dom";
-import { getMovieDetailUrl, TMDB_GET_OPTION } from "../constants.js";
+import { getImageUrl, getMovieDetailUrl } from "../utils/apiUrls";
+import { TMDB_GET_OPTION } from "../constants";
 
 function MovieDetail() {
   const { id } = useParams();

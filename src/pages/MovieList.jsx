@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getPopularMoviesUrl, TMDB_GET_OPTION } from "../constants.js";
+import { getPopularMoviesUrl } from "../utils/apiUrls";
+import { TMDB_GET_OPTION } from "../constants";
 import MovieCard from "../components/MovieCard";
 import MovieSlide from "../components/MovieSlide";
 
