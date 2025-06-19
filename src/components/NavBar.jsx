@@ -1,4 +1,12 @@
+import { useState, useEffect } from "react";
+
 function NavBar() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   return (
     <nav className="bg-black text-white px-6 py-4 flex items-center justify-between">
       {/* 로고 */}
@@ -10,7 +18,9 @@ function NavBar() {
       <div className="flex-1 px-6">
         <input
           type="text"
-          placeholder="검색어를 입력하세요"
+          value={searchTerm}
+          onChange={handleInputChange}
+          placeholder="영화 제목을 검색하세요"
           className="w-full max-w-md px-4 py-2 rounded-full bg-gray-200 text-black"
         />
       </div>
