@@ -12,6 +12,7 @@ function SearchResult() {
 
   useEffect(() => {
     if (query) {
+      console.log(getSearchMoviesUrl(query));
       fetch(getSearchMoviesUrl(query), TMDB_GET_OPTION)
         .then((res) => res.json())
         .then((data) => {

@@ -10,8 +10,8 @@ export const getPopularMoviesUrl = () => `${BASE_URL}/popular?language=ko`;
 // 영화 상세정보 URL
 export const getMovieDetailUrl = (id) => `${BASE_URL}/${id}?language=ko`;
 
-// 영화 검색 URL
+// 영화 검색 URL && 성인영화 필터링
 export const getSearchMoviesUrl = (query) =>
-  `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+  `https://api.themoviedb.org/3/search/movie?language=ko&include_adult=false&query=${encodeURIComponent(
     query
-  )}&language=ko`;
+  )}`;
