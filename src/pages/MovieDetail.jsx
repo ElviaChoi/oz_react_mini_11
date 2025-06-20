@@ -27,36 +27,36 @@ function MovieDetail() {
   return (
     <>
       {movie ? (
-        <section className="p-5">
-          <div className="flex flex-col md:flex-row gap-6 max-w-5xl mx-auto">
-            {/* 왼쪽: 포스터 */}
+        <section className="min-h-screen bg-gray-50 p-4">
+          <div className="flex flex-col md:flex-row gap-6 max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-md">
+            {/* 포스터 */}
             <div className="flex-shrink-0">
               <img
                 src={imageUrl}
                 alt={movie.title}
-                className="w-full md:w-[400px] rounded-lg"
+                className="w-full md:w-64 rounded-md"
               />
             </div>
 
-            {/* 오른쪽: 정보들 */}
+            {/* 정보 */}
             <div className="flex-grow space-y-4">
-              {/* 제목 + 평점 */}
-              <div className="flex justify-between items-center">
+              {/* 제목과 평점 */}
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <h2 className="text-2xl font-bold">{movie.title}</h2>
-                <p className="text-gray-700">
+                <p className="text-gray-600 mt-1 md:mt-0">
                   ⭐ 평점: {movie.vote_average.toFixed(1)}
                 </p>
               </div>
 
               {/* 장르 */}
-              <div>
+              <div className="text-sm text-gray-700">
                 <strong>장르:</strong> {genres}
               </div>
 
               {/* 줄거리 */}
-              <div>
+              <div className="text-sm text-gray-800">
                 <strong>줄거리</strong>
-                <p className="text-gray-800 mt-1">{movie.overview}</p>
+                <p className="mt-1">{movie.overview}</p>
               </div>
             </div>
           </div>

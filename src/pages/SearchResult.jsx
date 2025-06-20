@@ -12,7 +12,6 @@ function SearchResult() {
 
   useEffect(() => {
     if (query) {
-      console.log(getSearchMoviesUrl(query));
       fetch(getSearchMoviesUrl(query), TMDB_GET_OPTION)
         .then((res) => res.json())
         .then((data) => {
@@ -23,14 +22,15 @@ function SearchResult() {
   }, [query]);
 
   return (
-    <div className="p-6">
+    <div className="p-6 max-w-screen-xl mx-auto">
       {/* 검색어 표시 */}
-      <h2 className="text-xl font-bold mb-4">🔍 "{query}" 검색 결과</h2>
+      <h2 className="text-xl font-bold mb-4 text-center">
+        🔍 "{query}" 검색 결과
+      </h2>
 
       {/* 결과 리스트 */}
       <div className="flex flex-wrap gap-4 justify-center">
         {results.length > 0 ? (
-          // 결과가 있다면 MovieCard로 출력
           results.map((movie) => (
             <MovieCard
               key={movie.id}

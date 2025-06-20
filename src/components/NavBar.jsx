@@ -23,9 +23,6 @@ function NavBar() {
     if (debouncedSearchTerm) {
       // 검색어가 있으면 검색 페이지로 이동
       navigate(`/search?query=${debouncedSearchTerm}`);
-    } else {
-      // 검색어가 비어 있으면 메인 페이지로 이동
-      navigate("/");
     }
   }, [debouncedSearchTerm, navigate]);
 
