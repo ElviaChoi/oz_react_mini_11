@@ -15,8 +15,7 @@ function SearchResult() {
       fetch(getSearchMoviesUrl(query), TMDB_GET_OPTION)
         .then((res) => res.json())
         .then((data) => {
-          const filtered = data.results.filter((movie) => !movie.adult);
-          setResults(filtered);
+          setResults(data.results);
         });
     }
   }, [query]);
