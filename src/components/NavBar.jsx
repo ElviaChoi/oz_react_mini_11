@@ -8,6 +8,9 @@ function NavBar() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [isLogin, setIsLogin] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const isAutoSearchPage =
     location.pathname === "/" || location.pathname.startsWith("/search");
 
@@ -26,18 +29,18 @@ function NavBar() {
   }, [debouncedSearchInput, isAutoSearchPage, navigate]);
 
   return (
-    <nav className="bg-gray-950 text-white px-4 py-6 shadow-md">
+    <nav className="bg-gray-950 text-white px-4 py-6 shadow-md relative z-50">
       <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         {/* 로고 */}
         <div
-          className="text-3xl md:text-4xl font-bold cursor-pointer"
+          className="text-6xl mb-4 md:text-5xl font-bold cursor-pointer"
           onClick={() => navigate("/")}
         >
           🎬 Pickflix
         </div>
 
         {/* 검색창 */}
-        <div className="w-full md:flex-1 md:px-8 flex justify-center">
+        <div className="w-full ml-4 mr-2.5 md:flex-1 md:px-8 flex justify-center">
           <input
             type="text"
             value={searchInput}
@@ -48,20 +51,52 @@ function NavBar() {
           />
         </div>
 
-        {/* 버튼 영역 */}
-        <div className="flex space-x-2">
-          <button
-            onClick={() => navigate("/login")}
-            className="bg-sky-400 hover:bg-sky-500 text-black px-5 py-2 rounded-full font-semibold text-sm md:text-base"
-          >
-            로그인
-          </button>
-          <button
-            onClick={() => navigate("/signup")}
-            className="bg-sky-400 hover:bg-sky-500 text-black px-5 py-2 rounded-full font-semibold text-sm md:text-base"
-          >
-            회원가입
-          </button>
+        {/* 로그인 상태에 따라 UI 변경 */}
+        <div className="flex items-center space-x-2 relative">
+          {!isLogin ? (
+            <>
+              <button
+                onClick={() => setIsLogin(true)} // 임시 로그인
+                className="bg-sky-400 hover:bg-sky-500 text-black px-5 py-2 rounded-full font-semibold text-sm md:text-base"
+              >
+                로그인
+              </button>
+              <button
+                onClick={() => navigate("/signup")}
+                className="bg-sky-400 hover:bg-sky-500 text-black px-5 py-2 rounded-full font-semibold text-sm md:text-base"
+              >
+                회원가입
+              </button>
+            </>
+          ) : (
+            <div className="relative">
+              <img
+                src="/images/profile.png"
+                alt="profile"
+                className="w-20 h-20 rounded-full cursor-pointer"
+                onClick={() => setMenuOpen((prev) => !prev)}
+              />
+              {menuOpen && (
+                <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow z-50">
+                  <button
+                    onClick={() => alert("마이페이지 이동")}
+                    className="block w-full px-4 py-2 hover:bg-gray-100 text-left"
+                  >
+                    마이페이지
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsLogin(false); // 임시 로그아웃
+                      setMenuOpen(false);
+                    }}
+                    className="block w-full px-4 py-2 hover:bg-gray-100 text-left"
+                  >
+                    로그아웃
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </nav>

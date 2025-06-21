@@ -33,7 +33,7 @@ function MovieList() {
       {/* 인기 영화 리스트 */}
       <section>
         <h2 className="text-3xl font-bold text-white text-center mb-6 tracking-tight">
-          📈 지금 인기 있는 영화
+          📈 지금 인기 있는 영화 📈
         </h2>
         <p className="text-center text-sky-400 mb-10 text-base">
           실시간으로 가장 많은 추천을 받은 작품들을 모았습니다.
