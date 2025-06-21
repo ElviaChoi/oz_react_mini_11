@@ -6,32 +6,26 @@ function NavBar() {
   const [searchInput, setSearchInput] = useState("");
   const debouncedSearchInput = useDebounce(searchInput, 500);
   const navigate = useNavigate();
-  const location = useLocation(); // 현재 경로 가져오기
+  const location = useLocation();
 
   const isAutoSearchPage =
     location.pathname === "/" || location.pathname.startsWith("/search");
 
   const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
+    setSearchInput(e.target.value);
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && searchTerm) {
-      navigate(`/search?query=${searchTerm}`);
+    if (e.key === "Enter" && searchInput) {
+      navigate(`/search?query=${searchInput}`);
     }
   };
 
   useEffect(() => {
-    let isSearch = false;
-
-    if (location.pathname === "/" || location.pathname.includes("/search")) {
-      isSearch = true;
+    if (debouncedSearchInput && isAutoSearchPage) {
+      navigate(`/search?query=${debouncedSearchInput}`);
     }
-
-    if (debouncedSearchTerm && isSearch) {
-      navigate(`/search?query=${debouncedSearchTerm}`);
-    }
-  }, [debouncedSearchTerm, navigate, location.pathname]);
+  }, [debouncedSearchInput, isAutoSearchPage, navigate]);
 
   return (
     <nav className="bg-gray-950 text-white px-4 sm:px-6 lg:px-12 py-6 pb-10">
