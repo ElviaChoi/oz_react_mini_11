@@ -42,15 +42,26 @@ function Signup() {
     e.preventDefault();
     if (validate()) {
       alert("회원가입 유효성 통과!");
-      // TODO: supabase.auth.signUp() 연동 (4-2에서)
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4 py-10">
+    <div
+      className="relative min-h-screen bg-cover bg-center flex items-center justify-center px-4 py-10"
+      style={{
+        backgroundImage: "url('/images/cinema-chairs.jpg')",
+      }}
+    >
+      {/* 흐림 + 어두운 오버레이 */}
+      <div className="absolute inset-0 backdrop-blur-xs bg-black/30 z-0" />
+
+      {/* 회원가입 폼 */}
       <form
-        className="bg-white w-full max-w-md p-8 rounded-lg shadow-md"
         onSubmit={handleSubmit}
+        className="relative z-10 bg-white/90 backdrop-blur-sm w-full max-w-md p-8 rounded-xl 
+                   shadow-lg hover:shadow-2xl hover:ring-1 hover:ring-sky-700 
+                   hover:drop-shadow-[0_0_15px_rgba(56,189,248,0.4)] 
+                   transition-all duration-300"
       >
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
           🎉 회원가입 🎉

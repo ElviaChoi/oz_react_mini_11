@@ -29,19 +29,31 @@ function Login() {
     e.preventDefault();
     if (validate()) {
       alert("로그인 유효성 통과!");
-      // TODO: supabase.auth.signInWithPassword() 연동 (4-2에서)
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4 py-10">
+    <div
+      className="min-h-screen bg-cover bg-center flex items-center justify-center px-4 py-10"
+      style={{
+        backgroundImage: "url('/images/MoviePoster.jpg')",
+      }}
+    >
+      {/* 흐림 효과 오버레이 */}
+      <div className="absolute inset-0 backdrop-blur bg-black/40 z-0" />
+
+      {/* 로그인 or 회원가입 폼 */}
       <form
-        className="bg-white w-full max-w-md p-8 rounded-lg shadow-md"
         onSubmit={handleSubmit}
+        className="relative z-10 bg-white/90 backdrop-blur-sm w-full max-w-md p-8 rounded-xl 
+             shadow-lg hover:shadow-2xl hover:ring-1 hover:ring-sky-700 
+             hover:drop-shadow-[0_0_15px_rgba(56,189,248,0.4)] 
+             transition-all duration-300"
       >
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
           로그인
         </h2>
+
         <FormInput
           label="이메일"
           name="email"
@@ -51,6 +63,7 @@ function Login() {
           error={errors.email}
           placeholder="이메일 입력"
         />
+
         <FormInput
           label="비밀번호"
           name="password"
@@ -60,9 +73,14 @@ function Login() {
           error={errors.password}
           placeholder="비밀번호 입력"
         />
-        <button className="w-full mt-6 py-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full font-semibold transition">
+
+        <button
+          type="submit"
+          className="w-full mt-6 py-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full font-semibold transition"
+        >
           로그인
         </button>
+
         <p className="text-center mt-6 text-sm text-gray-600">
           Pickflix가 처음이신가요?{" "}
           <a href="/signup" className="text-sky-400 underline font-semibold">

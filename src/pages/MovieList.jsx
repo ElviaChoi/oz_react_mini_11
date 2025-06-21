@@ -21,7 +21,7 @@ function MovieList() {
       {/* 추천 영화 슬라이드 */}
       <section>
         <h2 className="font-bold text-[46px] text-center text-white mb-2 pt-6">
-          🎬 오늘의 추천 영화
+          🎬 오늘의 추천 영화 🎬
         </h2>
         <p className="text-center text-sky-400 text-lg mb-10">
           Pickflix가 엄선한 지금 꼭 봐야 할 영화!
