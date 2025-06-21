@@ -5,8 +5,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import { getImageUrl } from "../utils/apiUrls";
+import { useNavigate } from "react-router-dom";
 
 function MovieSlide({ movies }) {
+  const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    navigate(`/details/${id}`);
+  };
+
   return (
     <Swiper
       modules={[Navigation, Pagination, Autoplay]}
@@ -23,12 +30,12 @@ function MovieSlide({ movies }) {
     >
       {movies.map((movie, index) => (
         <SwiperSlide key={movie.id}>
-          <div className="relative cursor-pointer group hover:scale-105 transition-transform">
-            {/* ✅ 순번 뱃지 */}
-            <div
-              className="absolute top-4 left-4 w-12 h-12 rounded-full flex items-center justify-center z-10
-                bg-sky-500 backdrop-blur-md text-white text-[28px] font-bold shadow-md border border-white/30"
-            >
+          <div
+            onClick={() => handleClick(movie.id)}
+            className="relative cursor-pointer group hover:scale-105 transition-transform"
+          >
+            {/* 순번 뱃지 */}
+            <div className="absolute top-4 left-4 w-12 h-12 rounded-full flex items-center justify-center z-10 bg-sky-500 backdrop-blur-md text-white text-[28px] font-bold shadow-md border border-white/30">
               {index + 1}
             </div>
 

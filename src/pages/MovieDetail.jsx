@@ -25,23 +25,26 @@ function MovieDetail() {
 
   return (
     <section
-      className="min-h-screen bg-cover bg-center relative text-white"
-      style={{ backgroundImage: `url(${backdropUrl})` }}
+      className="relative min-h-screen bg-cover bg-center text-white bg-[#0f172a]"
+      style={{
+        backgroundImage: movie.backdrop_path ? `url(${backdropUrl})` : "none",
+      }}
     >
       {/* 어두운 배경 오버레이 */}
-      <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm"></div>
+      {movie.backdrop_path && (
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-0" />
+      )}
 
       {/* 콘텐츠 */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center justify-center gap-12 text-center">
         {/* 포스터 */}
-        <div className="relative group w-full md:w-[320px] lg:w-[380px] rounded-xl overflow-visible">
+        <div className="relative group w-full md:w-[320px] lg:w-[380px] rounded-xl">
           <img
             src={posterUrl}
             alt={movie.title}
             className="w-full h-full object-cover rounded-xl z-10 relative"
           />
-          {/* 바깥쪽 Glow */}
-          <div className="absolute -inset-3 rounded-2xl z-0 group-hover:bg-white/10 group-hover:blur-md transition duration-300"></div>
+          <div className="absolute -inset-3 rounded-2xl z-0 group-hover:bg-white/10 group-hover:blur-md transition duration-300" />
         </div>
 
         {/* 텍스트 정보 */}
