@@ -3,29 +3,33 @@ import { getImageUrl } from "../utils/apiUrls";
 
 function MovieCard({ id, title, posterPath, voteAverage }) {
   const navigate = useNavigate();
+  const imageUrl = getImageUrl(posterPath);
 
   const handleClick = () => {
     navigate(`/details/${id}`);
   };
 
-  const imageUrl = getImageUrl(posterPath);
-
   return (
     <div
       onClick={handleClick}
-      className="cursor-pointer w-48 bg-white p-2 rounded shadow hover:scale-105 transition"
+      className="cursor-pointer group bg-white/5 backdrop-blur-md border border-white/20 p-3 rounded-2xl shadow-2xl hover:scale-[1.03] transition-transform duration-300 w-full sm:w-[240px] md:w-[260px] lg:w-[280px]"
     >
-      <img
-        src={imageUrl}
-        alt={title}
-        className="w-full h-[220px] object-cover rounded mb-2"
-      />
-      <h2 className="mt-2 font-semibold text-center h-[32px] overflow-hidden text-ellipsis whitespace-nowrap">
-        {title}
-      </h2>
-      <p className="text-center text-sm text-gray-600">
-        ⭐ {voteAverage.toFixed(1)}
-      </p>
+      {/* 이미지 */}
+      <div className="relative overflow-hidden rounded-xl shadow-lg">
+        <img
+          src={imageUrl}
+          alt={title}
+          className="w-full h-[340px] object-cover rounded-xl group-hover:brightness-110 group-hover:blur-[1px] transition duration-300"
+        />
+      </div>
+
+      {/* 타이틀 + 평점 */}
+      <div className="mt-4 flex justify-between items-center text-white">
+        <h2 className="text-base font-semibold truncate pr-2 mr-2">{title}</h2>
+        <span className="whitespace-nowrap bg-yellow-300 text-black font-semibold px-4 py-1 text-sm rounded-lg shadow-md">
+          ⭐ {voteAverage.toFixed(1)}
+        </span>
+      </div>
     </div>
   );
 }

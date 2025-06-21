@@ -1,30 +1,48 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules"; // 모듈 추가
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import MovieCard from "./MovieCard";
+import { getImageUrl } from "../utils/apiUrls";
 
 function MovieSlide({ movies }) {
   return (
     <Swiper
-      modules={[Navigation, Pagination]} // 필수: Swiper 기능 활성화
-      spaceBetween={12} // 슬라이드 간격 (px)
-      slidesPerView={5} // 한 화면에 보여줄 카드 개수
-      navigation // 좌우 화살표 네비게이션 사용
-      pagination={{ clickable: true }} // 페이지네이션 점 클릭 가능하게 설정
-      loop={true} // 슬라이드 무한 반복
+      modules={[Navigation, Pagination, Autoplay]}
+      spaceBetween={16}
+      slidesPerView={4}
+      navigation
+      pagination={{ clickable: true }}
+      loop={true}
+      autoplay={{
+        delay: 3000,
+        disableOnInteraction: false,
+      }}
+      className="max-w-screen-xl mx-auto"
     >
       {movies.map((movie, index) => (
-        <SwiperSlide key={movie.id} className={index === 0 ? "ml-16" : ""}>
-          <div className="mb-12">
-            <MovieCard
-              id={movie.id}
-              title={movie.title}
-              posterPath={movie.poster_path}
-              voteAverage={movie.vote_average}
+        <SwiperSlide key={movie.id}>
+          <div className="relative cursor-pointer group hover:scale-105 transition-transform">
+            {/* ✅ 순번 뱃지 */}
+            <div
+              className="absolute top-4 left-4 w-12 h-12 rounded-full flex items-center justify-center z-10
+                bg-sky-500 backdrop-blur-md text-white text-[28px] font-bold shadow-md border border-white/30"
+            >
+              {index + 1}
+            </div>
+
+            {/* 포스터 이미지 */}
+            <img
+              src={getImageUrl(movie.poster_path)}
+              alt={movie.title}
+              className="w-full h-[460px] object-cover rounded-xl shadow-xl"
             />
+
+            {/* 호버 시 타이틀 표시 */}
+            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 px-4 py-3 text-white text-base text-center rounded-b-xl opacity-0 group-hover:opacity-100 transition-opacity">
+              {movie.title}
+            </div>
           </div>
         </SwiperSlide>
       ))}

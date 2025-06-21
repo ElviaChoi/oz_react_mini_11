@@ -3,17 +3,18 @@ import { useNavigate, useLocation } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
 
 function NavBar() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const [searchInput, setSearchInput] = useState("");
+  const debouncedSearchInput = useDebounce(searchInput, 500);
   const navigate = useNavigate();
   const location = useLocation(); // 현재 경로 가져오기
 
-  // 검색어가 입력될 때 상태 업데이트
+  const isAutoSearchPage =
+    location.pathname === "/" || location.pathname.startsWith("/search");
+
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // 엔터와 searchTerm 발생하면 검색 실행
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && searchTerm) {
       navigate(`/search?query=${searchTerm}`);
@@ -33,30 +34,37 @@ function NavBar() {
   }, [debouncedSearchTerm, navigate, location.pathname]);
 
   return (
-    <nav className="bg-black text-white px-6 py-4 flex items-center justify-between">
-      {/* 로고 */}
-      <div className="text-xl font-bold">영화 추천</div>
+    <nav className="bg-gray-950 text-white px-4 sm:px-6 lg:px-12 py-6 pb-10">
+      <div className="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between gap-4">
+        {/* 로고 */}
+        <div
+          className="text-5xl font-bold cursor-pointer"
+          onClick={() => navigate("/")}
+        >
+          🎬 Pickflix
+        </div>
 
-      {/* 검색창 */}
-      <div className="flex-1 px-6">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          placeholder="영화 제목을 검색하세요"
-          className="w-full max-w-md px-4 py-2 rounded-full bg-gray-200 text-black"
-        />
-      </div>
+        {/* 검색창 */}
+        <div className="flex-1 min-w-[200px] flex justify-center">
+          <input
+            type="text"
+            value={searchInput}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            placeholder="🔍 영화 제목을 검색하세요"
+            className="w-full max-w-sm px-6 py-2 rounded-full bg-gray-200 text-black placeholder:text-gray-600"
+          />
+        </div>
 
-      {/* 버튼 */}
-      <div className="space-x-2">
-        <button className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded">
-          로그인
-        </button>
-        <button className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded">
-          회원가입
-        </button>
+        {/* 버튼 영역 */}
+        <div className="flex space-x-2">
+          <button className="bg-sky-400 hover:bg-sky-500 text-black px-6 py-3 rounded-md text-lg font-semibold">
+            로그인
+          </button>
+          <button className="bg-sky-400 hover:bg-sky-500 text-black px-6 py-3 rounded-md text-lg font-semibold">
+            회원가입
+          </button>
+        </div>
       </div>
     </nav>
   );

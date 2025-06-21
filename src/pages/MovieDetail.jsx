@@ -5,66 +5,67 @@ import { TMDB_GET_OPTION } from "../constants";
 
 function MovieDetail() {
   const { id } = useParams();
-  const [movie, setMovie] = useState(undefined);
-
-  const imageUrl = movie ? getImageUrl(movie.poster_path) : "";
-
-  let genres = "";
-  if (movie && movie.genres) {
-    const genreNames = movie.genres.map((genre) => genre.name);
-    genres = genreNames.join(", ");
-  }
+  const [movie, setMovie] = useState(null);
 
   useEffect(() => {
     fetch(getMovieDetailUrl(id), TMDB_GET_OPTION)
       .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        setMovie(res);
-      });
+      .then((data) => setMovie(data));
   }, [id]);
 
+  if (!movie) {
+    return (
+      <div className="text-center text-gray-300 mt-10 text-lg">로딩중...</div>
+    );
+  }
+
+  const backdropUrl = getImageUrl(movie.backdrop_path);
+  const posterUrl = getImageUrl(movie.poster_path);
+  const genres = movie.genres?.map((g) => g.name).join(", ");
+
   return (
-    <>
-      {movie ? (
-        <section className="min-h-screen bg-gray-50 p-4">
-          <div className="flex flex-col md:flex-row gap-6 max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-md">
-            {/* 포스터 */}
-            <div className="flex-shrink-0">
-              <img
-                src={imageUrl}
-                alt={movie.title}
-                className="w-full md:w-64 rounded-md"
-              />
-            </div>
+    <section
+      className="min-h-screen bg-cover bg-center relative text-white"
+      style={{ backgroundImage: `url(${backdropUrl})` }}
+    >
+      {/* 어두운 배경 오버레이 */}
+      <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm"></div>
 
-            {/* 정보 */}
-            <div className="flex-grow space-y-4">
-              {/* 제목과 평점 */}
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                <h2 className="text-2xl font-bold">{movie.title}</h2>
-                <p className="text-gray-600 mt-1 md:mt-0">
-                  ⭐ 평점: {movie.vote_average.toFixed(1)}
-                </p>
-              </div>
+      {/* 콘텐츠 */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center justify-center gap-12 text-center">
+        {/* 포스터 */}
+        <div className="relative group w-full md:w-[320px] lg:w-[380px] rounded-xl overflow-visible">
+          <img
+            src={posterUrl}
+            alt={movie.title}
+            className="w-full h-full object-cover rounded-xl z-10 relative"
+          />
+          {/* 바깥쪽 Glow */}
+          <div className="absolute -inset-3 rounded-2xl z-0 group-hover:bg-white/10 group-hover:blur-md transition duration-300"></div>
+        </div>
 
-              {/* 장르 */}
-              <div className="text-sm text-gray-700">
-                <strong>장르:</strong> {genres}
-              </div>
+        {/* 텍스트 정보 */}
+        <div className="flex-1 space-y-6 max-w-xl mx-auto relative z-10">
+          <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-300 to-white">
+            {movie.title}
+          </h1>
 
-              {/* 줄거리 */}
-              <div className="text-sm text-gray-800">
-                <strong>줄거리</strong>
-                <p className="mt-1">{movie.overview}</p>
-              </div>
-            </div>
+          <div className="flex flex-wrap justify-center gap-4 text-sm text-sky-200">
+            <span className="bg-gray-800 rounded-full px-3 py-1 text-white">
+              {movie.release_date?.slice(0, 4)}
+            </span>
+            <span className="bg-gray-800 rounded-full px-3 py-1">{genres}</span>
+            <span className="bg-yellow-500 text-black rounded-full px-3 py-1 font-semibold">
+              ⭐ {movie.vote_average.toFixed(1)}
+            </span>
           </div>
-        </section>
-      ) : (
-        <div className="text-center mt-10 text-lg text-gray-500">로딩중...</div>
-      )}
-    </>
+
+          <p className="text-base text-gray-100 leading-relaxed max-w-md mx-auto">
+            {movie.overview}
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }
 
