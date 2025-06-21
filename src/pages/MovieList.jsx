@@ -20,7 +20,7 @@ function MovieList() {
     <div className="min-h-screen bg-gray-950 px-4 sm:px-6 lg:px-8 space-y-16 pb-24">
       {/* 추천 영화 슬라이드 */}
       <section>
-        <h2 className="font-bold text-[46px] text-center text-white mb-2">
+        <h2 className="font-bold text-[46px] text-center text-white mb-2 pt-6">
           🎬 오늘의 추천 영화
         </h2>
         <p className="text-center text-sky-400 text-lg mb-10">
