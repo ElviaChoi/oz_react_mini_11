@@ -15,7 +15,7 @@ function NavBar() {
   const { user, setUser } = useUserContext();
   const { logout } = useSupabaseAuth();
 
-  const isAutoSearchPage =
+  const onHomeOrSearchPage =
     location.pathname === "/" || location.pathname.startsWith("/search");
 
   const handleInputChange = (e) => setSearchInput(e.target.value);
@@ -28,11 +28,11 @@ function NavBar() {
 
   useEffect(() => {
     if (!debouncedSearchInput) return;
-    if (!isAutoSearchPage) return;
+    if (!onHomeOrSearchPage) return;
     if (location.pathname === "/") return;
 
     navigate(`/search?query=${debouncedSearchInput}`);
-  }, [debouncedSearchInput, isAutoSearchPage, location.pathname, navigate]);
+  }, [debouncedSearchInput, onHomeOrSearchPage, location.pathname, navigate]);
 
   useEffect(() => {
     setIsLogin(!!user);
