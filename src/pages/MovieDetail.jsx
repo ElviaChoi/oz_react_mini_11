@@ -25,14 +25,14 @@ function MovieDetail() {
 
   return (
     <section
-      className="relative min-h-screen bg-cover bg-center text-white bg-[#0f172a]"
+      className="pt-[150px] sm:pt-[120px] md:pt-[130px] min-h-[calc(100vh+200px)] bg-cover bg-center text-white bg-[#0f172a]"
       style={{
         backgroundImage: movie.backdrop_path ? `url(${backdropUrl})` : "none",
       }}
     >
       {/* 어두운 배경 오버레이 */}
       {movie.backdrop_path && (
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-0" />
+        <div className="absolute top-0 left-0 w-full min-h-[calc(100%+200px)] bg-black/50 backdrop-blur-sm z-0 pointer-events-none" />
       )}
 
       {/* 콘텐츠 */}

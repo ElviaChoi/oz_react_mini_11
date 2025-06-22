@@ -17,7 +17,7 @@ function MovieList() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-950 px-4 sm:px-6 lg:px-8 space-y-16 pb-24">
+    <div className="pt-[150px] sm:pt-[120px] md:pt-[130px] min-h-[calc(100vh+100px)] bg-gray-950 px-4 sm:px-6 lg:px-8 space-y-16 pb-24">
       {/* 추천 영화 슬라이드 */}
       <section>
         <h2 className="font-bold text-[46px] text-center text-white mb-2 pt-6">

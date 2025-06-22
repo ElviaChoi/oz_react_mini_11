@@ -20,7 +20,7 @@ function NavBar() {
 
   const handleInputChange = (e) => setSearchInput(e.target.value);
 
-  const handleKeyDown = (e) => {
+  const submitSearchOnEnter = (e) => {
     if (e.key === "Enter" && searchInput) {
       navigate(`/search?query=${searchInput}`);
     }
@@ -29,7 +29,7 @@ function NavBar() {
   useEffect(() => {
     if (!debouncedSearchInput) return;
     if (!onHomeOrSearchPage) return;
-    if (location.pathname === "/") return;
+    if (location.pathname === "/" && searchInput === "") return;
 
     navigate(`/search?query=${debouncedSearchInput}`);
   }, [debouncedSearchInput, onHomeOrSearchPage, location.pathname, navigate]);
@@ -39,11 +39,11 @@ function NavBar() {
   }, [user]);
 
   return (
-    <nav className="bg-gray-950 text-white px-4 py-6 shadow-md relative z-50">
-      <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <nav className="fixed top-0 left-0 w-full bg-gray-950 text-white py-5 sm:py-5 md:py-6 px-4 shadow-md z-50">
+      <div className="max-w-screen-xl mx-auto h-full flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4">
         {/* 로고 */}
         <div
-          className="text-6xl mb-4 md:text-5xl font-bold cursor-pointer"
+          className="text-4xl sm:text-5xl font-bold cursor-pointer"
           onClick={() => {
             setSearchInput("");
             navigate("/");
@@ -53,12 +53,12 @@ function NavBar() {
         </div>
 
         {/* 검색창 */}
-        <div className="w-full ml-4 mr-2.5 md:flex-1 md:px-8 flex justify-center">
+        <div className="w-full sm:flex-1 sm:px-6 flex justify-center">
           <input
             type="text"
             value={searchInput}
             onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
+            onKeyDown={submitSearchOnEnter}
             placeholder="🔍 영화 제목을 검색하세요"
             className="w-full max-w-md px-5 py-2 rounded-full bg-gray-200 text-black placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-sky-400 transition"
           />
@@ -70,13 +70,13 @@ function NavBar() {
             <>
               <button
                 onClick={() => navigate("/login")}
-                className="bg-sky-400 hover:bg-sky-500 text-black px-5 py-2 rounded-full font-semibold text-sm md:text-base"
+                className="bg-sky-400 hover:bg-sky-500 text-black px-4 py-1 sm:px-5 sm:py-2 rounded-full font-semibold text-sm sm:text-base"
               >
                 로그인
               </button>
               <button
                 onClick={() => navigate("/signup")}
-                className="bg-sky-400 hover:bg-sky-500 text-black px-5 py-2 rounded-full font-semibold text-sm md:text-base"
+                className="bg-sky-400 hover:bg-sky-500 text-black px-4 py-1 sm:px-5 sm:py-2 rounded-full font-semibold text-sm sm:text-base"
               >
                 회원가입
               </button>
@@ -86,7 +86,7 @@ function NavBar() {
               <img
                 src={user?.profileImageUrl || "/images/profile.png"}
                 alt="profile"
-                className="w-20 h-20 rounded-full cursor-pointer"
+                className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full cursor-pointer object-cover"
                 onClick={() => setMenuOpen((prev) => !prev)}
               />
               {menuOpen && (
