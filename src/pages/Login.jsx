@@ -1,9 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FormInput from "../components/FormInput";
+import { useSupabaseAuth, useUserContext } from "../supabase";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
+  const { login } = useSupabaseAuth();
+  const { setUser } = useUserContext();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,10 +31,20 @@ function Login() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      alert("로그인 유효성 통과!");
+    if (!validate()) return;
+
+    try {
+      const res = await login({ email: form.email, password: form.password });
+      if (res?.user) {
+        setUser(res.user);
+      }
+
+      alert("로그인 성공!");
+      navigate("/");
+    } catch (error) {
+      alert(`로그인 실패: ${error.message}`);
     }
   };
 

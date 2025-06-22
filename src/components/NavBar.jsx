@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
+import { useUserContext, useSupabaseAuth } from "../supabase";
 
 function NavBar() {
   const [searchInput, setSearchInput] = useState("");
@@ -10,6 +11,9 @@ function NavBar() {
 
   const [isLogin, setIsLogin] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const { user, setUser } = useUserContext();
+  const { logout } = useSupabaseAuth();
 
   const isAutoSearchPage =
     location.pathname === "/" || location.pathname.startsWith("/search");
@@ -27,6 +31,10 @@ function NavBar() {
       navigate(`/search?query=${debouncedSearchInput}`);
     }
   }, [debouncedSearchInput, isAutoSearchPage, navigate]);
+
+  useEffect(() => {
+    setIsLogin(!!user);
+  }, [user]);
 
   return (
     <nav className="bg-gray-950 text-white px-4 py-6 shadow-md relative z-50">
@@ -56,7 +64,7 @@ function NavBar() {
           {!isLogin ? (
             <>
               <button
-                onClick={() => setIsLogin(true)} // 임시 로그인
+                onClick={() => navigate("/login")}
                 className="bg-sky-400 hover:bg-sky-500 text-black px-5 py-2 rounded-full font-semibold text-sm md:text-base"
               >
                 로그인
@@ -71,7 +79,7 @@ function NavBar() {
           ) : (
             <div className="relative">
               <img
-                src="/images/profile.png"
+                src={user?.profileImageUrl || "/images/profile.png"}
                 alt="profile"
                 className="w-20 h-20 rounded-full cursor-pointer"
                 onClick={() => setMenuOpen((prev) => !prev)}
@@ -85,9 +93,11 @@ function NavBar() {
                     마이페이지
                   </button>
                   <button
-                    onClick={() => {
-                      setIsLogin(false); // 임시 로그아웃
+                    onClick={async () => {
+                      await logout();
+                      setUser(null);
                       setMenuOpen(false);
+                      navigate("/");
                     }}
                     className="block w-full px-4 py-2 hover:bg-gray-100 text-left"
                   >

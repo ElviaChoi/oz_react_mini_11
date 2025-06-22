@@ -4,10 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
 
+import { SupabaseProvider } from "./supabase";
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <SupabaseProvider>
+        <App />
+      </SupabaseProvider>
     </BrowserRouter>
   </StrictMode>
 );

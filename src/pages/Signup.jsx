@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FormInput from "../components/FormInput";
+import { useSupabaseAuth } from "../supabase";
 
 function Signup() {
   const [form, setForm] = useState({
@@ -9,6 +11,9 @@ function Signup() {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
+  const { signUp } = useSupabaseAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,8 +31,8 @@ function Signup() {
       newErrors.email = "이메일 형식이 올바르지 않습니다.";
     }
 
-    if (!/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}$/.test(form.password)) {
-      newErrors.password = "비밀번호는 영문자와 숫자의 조합이어야 합니다.";
+    if (!/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(form.password)) {
+      newErrors.password = "비밀번호는 영문자+숫자 포함 8자 이상이어야 합니다.";
     }
 
     if (form.password !== form.confirmPassword) {
@@ -38,10 +43,21 @@ function Signup() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      alert("회원가입 유효성 통과!");
+    if (!validate()) return;
+
+    try {
+      const res = await signUp({
+        email: form.email,
+        password: form.password,
+        userName: form.name,
+      });
+
+      alert("회원가입 성공!");
+      navigate("/login");
+    } catch (error) {
+      alert(`회원가입 실패: ${error.message}`);
     }
   };
 
@@ -82,7 +98,7 @@ function Signup() {
           value={form.email}
           onChange={handleChange}
           error={errors.email}
-          placeholder="example@oz.com"
+          placeholder="example@pickflix.com"
         />
         <FormInput
           label="비밀번호"
