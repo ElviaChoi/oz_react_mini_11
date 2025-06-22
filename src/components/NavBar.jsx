@@ -27,10 +27,12 @@ function NavBar() {
   };
 
   useEffect(() => {
-    if (debouncedSearchInput && isAutoSearchPage) {
-      navigate(`/search?query=${debouncedSearchInput}`);
-    }
-  }, [debouncedSearchInput, isAutoSearchPage, navigate]);
+    if (!debouncedSearchInput) return;
+    if (!isAutoSearchPage) return;
+    if (location.pathname === "/") return;
+
+    navigate(`/search?query=${debouncedSearchInput}`);
+  }, [debouncedSearchInput, isAutoSearchPage, location.pathname, navigate]);
 
   useEffect(() => {
     setIsLogin(!!user);
@@ -42,7 +44,10 @@ function NavBar() {
         {/* 로고 */}
         <div
           className="text-6xl mb-4 md:text-5xl font-bold cursor-pointer"
-          onClick={() => navigate("/")}
+          onClick={() => {
+            setSearchInput("");
+            navigate("/");
+          }}
         >
           🎬 Pickflix
         </div>
