@@ -41,10 +41,7 @@ function SearchResult() {
         {results.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
             {results.map((movie) => (
-              <div
-                key={movie.id}
-                className="relative group bg-white/10 backdrop-blur-md rounded-xl overflow-hidden shadow-xl hover:scale-105 transition-transform duration-300"
-              >
+              <div className="flex justify-center" key={movie.id}>
                 <MovieCard
                   id={movie.id}
                   title={movie.title}

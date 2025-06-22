@@ -12,7 +12,7 @@ export const changeFromDto = ({ type, dto }) => {
           userName: userInfo.userName
             ? userInfo.userName
             : userInfo.email.split("@")[0],
-          profileImageUrl: userInfo.avatar_url || "/images/profile.png",
+          profileImageUrl: "/images/profile.png",
         },
       };
     case DTO_TYPE.error:
