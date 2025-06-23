@@ -8,7 +8,7 @@ function Login() {
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
-  const { login } = useSupabaseAuth();
+  const { login, loginWithKakao, loginWithGoogle } = useSupabaseAuth();
   const { setUser } = useUserContext();
 
   const handleChange = (e) => {
@@ -95,6 +95,24 @@ function Login() {
           className="w-full mt-6 py-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full font-semibold transition"
         >
           로그인
+        </button>
+
+        <button
+          onClick={() => loginWithKakao("http://localhost:5173")}
+          type="button"
+          className="w-full mt-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-black rounded-full font-semibold transition"
+        >
+          카카오로 로그인
+        </button>
+
+        <button
+          onClick={() => {
+            loginWithGoogle("http://localhost:5173");
+          }}
+          type="button"
+          className="w-full mt-4 py-3 bg-white border border-gray-50 hover:bg-gray-100 text-black rounded-full font-semibold transition"
+        >
+          구글로 로그인
         </button>
 
         <p className="text-center mt-6 text-sm text-gray-600">
