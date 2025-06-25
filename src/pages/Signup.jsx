@@ -7,6 +7,7 @@ import {
   validateEmail,
   validatePassword,
   validateConfirmPassword,
+  validateSignup,
 } from "../utils/validation";
 
 function Signup() {
@@ -27,23 +28,7 @@ function Signup() {
   };
 
   const validate = () => {
-    const newErrors = {};
-
-    const nameError = validateName(form.name);
-    if (nameError) newErrors.name = nameError;
-
-    const emailError = validateEmail(form.email);
-    if (emailError) newErrors.emaail = emailError;
-
-    const passwordError = validatePassword(form.password);
-    if (passwordError) newErrors.password = passwordError;
-
-    const confirmError = validateConfirmPassword(
-      form.password,
-      form.confirmPassword
-    );
-    if (confirmError) newErrors.confirmPassword = confirmError;
-
+    const newErrors = validateSignup(form);
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };

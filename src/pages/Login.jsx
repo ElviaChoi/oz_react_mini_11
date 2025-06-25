@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import FormInput from "../components/common/FormInput";
 import { useSupabaseAuth, useUserContext } from "../supabase";
 import { getRedirectUrl } from "../utils/oauth";
-import { validateEmail, validatePassword } from "../utils/validation";
+import {
+  validateEmail,
+  validateLogin,
+  validatePassword,
+} from "../utils/validation";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -19,14 +23,7 @@ function Login() {
   };
 
   const validate = () => {
-    const newErrors = {};
-
-    const emailError = validateEmail(form.email);
-    if (emailError) newErrors.email = emailError;
-
-    const passwordError = validatePassword(form.password);
-    if (passwordError) newErrors.password = passwordError;
-
+    const newErrors = validateLogin(form);
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
