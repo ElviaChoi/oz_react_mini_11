@@ -2,6 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../components/FormInput";
 import { useSupabaseAuth } from "../supabase";
+import {
+  validateName,
+  validateEmail,
+  validatePassword,
+  validateConfirmPassword,
+} from "../utils/validation";
 
 function Signup() {
   const [form, setForm] = useState({
@@ -23,21 +29,20 @@ function Signup() {
   const validate = () => {
     const newErrors = {};
 
-    if (!/^[a-zA-Z0-9가-힣]{2,8}$/.test(form.name)) {
-      newErrors.name = "이름은 2~8자, 숫자/영문/한글만 가능합니다.";
-    }
+    const nameError = validateName(form.name);
+    if (nameError) newErrors.name = nameError;
 
-    if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/.test(form.email)) {
-      newErrors.email = "이메일 형식이 올바르지 않습니다.";
-    }
+    const emailError = validateEmail(form.email);
+    if (emailError) newErrors.emaail = emailError;
 
-    if (!/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(form.password)) {
-      newErrors.password = "비밀번호는 영문자+숫자 포함 8자 이상이어야 합니다.";
-    }
+    const passwordError = validatePassword(form.password);
+    if (passwordError) newErrors.password = passwordError;
 
-    if (form.password !== form.confirmPassword) {
-      newErrors.confirmPassword = "비밀번호가 일치하지 않습니다.";
-    }
+    const confirmError = validateConfirmPassword(
+      form.password,
+      form.confirmPassword
+    );
+    if (confirmError) newErrors.confirmPassword = confirmError;
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;

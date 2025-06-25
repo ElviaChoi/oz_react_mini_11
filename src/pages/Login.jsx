@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import FormInput from "../components/FormInput";
 import { useSupabaseAuth, useUserContext } from "../supabase";
 import { getRedirectUrl } from "../utils/oauth";
+import { validateEmail, validatePassword } from "../utils/validation";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -20,13 +21,11 @@ function Login() {
   const validate = () => {
     const newErrors = {};
 
-    if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/.test(form.email)) {
-      newErrors.email = "올바른 이메일 양식으로 입력해주세요.";
-    }
+    const emailError = validateEmail(form.email);
+    if (emailError) newErrors.email = emailError;
 
-    if (form.password.length < 8) {
-      newErrors.password = "비밀번호는 8자 이상이어야 합니다.";
-    }
+    const passwordError = validatePassword(form.password);
+    if (passwordError) newErrors.password = passwordError;
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
