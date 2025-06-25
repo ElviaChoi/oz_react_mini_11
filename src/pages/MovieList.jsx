@@ -17,10 +17,10 @@ function MovieList() {
   }, []);
 
   return (
-    <div className="pt-[150px] sm:pt-[120px] md:pt-[130px] min-h-[calc(100vh+100px)] bg-gray-950 px-4 sm:px-6 lg:px-8 space-y-16 pb-24">
+    <div className="pt-[140px] sm:pt-[120px] md:pt-[120px] min-h-[calc(100vh+100px)] bg-gray-950 px-4 sm:px-6 lg:px-8 space-y-16 pb-24">
       {/* 추천 영화 슬라이드 */}
       <section>
-        <h2 className="font-bold text-[46px] text-center text-white mb-2 pt-6">
+        <h2 className="font-bold text-[34px] text-center text-white mb-2 pt-6">
           🎬 오늘의 추천 영화 🎬
         </h2>
         <p className="text-center text-sky-400 text-lg mb-10">
@@ -32,7 +32,7 @@ function MovieList() {
 
       {/* 인기 영화 리스트 */}
       <section>
-        <h2 className="text-3xl font-bold text-white text-center mb-6 tracking-tight">
+        <h2 className="text-[30px] font-bold text-white text-center mb-6 tracking-tight">
           📈 지금 인기 있는 영화 📈
         </h2>
         <p className="text-center text-sky-400 mb-10 text-base">
