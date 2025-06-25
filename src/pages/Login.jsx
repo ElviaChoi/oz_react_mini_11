@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../components/FormInput";
 import { useSupabaseAuth, useUserContext } from "../supabase";
+import { getRedirectUrl } from "../utils/oauth";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -98,7 +99,7 @@ function Login() {
         </button>
 
         <button
-          onClick={() => loginWithKakao("http://localhost:5173")}
+          onClick={() => loginWithKakao(getRedirectUrl())}
           type="button"
           className="w-full mt-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-black rounded-full font-semibold transition"
         >
@@ -107,7 +108,7 @@ function Login() {
 
         <button
           onClick={() => {
-            loginWithGoogle("http://localhost:5173");
+            loginWithGoogle(getRedirectUrl());
           }}
           type="button"
           className="w-full mt-4 py-3 bg-white border border-gray-50 hover:bg-gray-100 text-black rounded-full font-semibold transition"
