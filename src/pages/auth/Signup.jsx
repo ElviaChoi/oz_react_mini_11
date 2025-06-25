@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SignupFormInputs from "../components/auth/SignupFormInputs";
-import { useSupabaseAuth } from "../supabase";
-import { validateSignup } from "../utils/validation";
+import SignupFormInputs from "../../components/auth/SignupFormInputs";
+import { useSupabaseAuth } from "../../supabase";
+import { validateSignup } from "../../utils/validation";
 
 function Signup() {
   const [form, setForm] = useState({

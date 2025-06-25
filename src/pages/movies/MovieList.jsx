@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getPopularMoviesUrl } from "../utils/apiUrls";
-import { TMDB_GET_OPTION } from "../constants";
-import MovieCard from "../components/Movie/MovieCard";
-import MovieSlide from "../components/Movie/MovieSlide";
+import { getPopularMoviesUrl } from "../../utils/apiUrls";
+import { TMDB_GET_OPTION } from "../../constants";
+import MovieCard from "../../components/Movie/MovieCard";
+import MovieSlide from "../../components/Movie/MovieSlide";
 
 function MovieList() {
   const [movies, setMovies] = useState([]);

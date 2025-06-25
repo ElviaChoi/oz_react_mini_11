@@ -1,8 +1,8 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getSearchMoviesUrl } from "../utils/apiUrls";
-import { TMDB_GET_OPTION } from "../constants";
-import MovieCard from "../components/Movie/MovieCard";
+import { getSearchMoviesUrl } from "../../utils/apiUrls";
+import { TMDB_GET_OPTION } from "../../constants";
+import MovieCard from "../../components/Movie/MovieCard";
 
 function SearchResult() {
   const [searchParams] = useSearchParams();

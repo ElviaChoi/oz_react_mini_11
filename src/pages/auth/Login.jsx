@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginFormInputs from "../components/auth/LoginFormInputs";
-import { useSupabaseAuth, useUserContext } from "../supabase";
-import { getRedirectUrl } from "../utils/oauth";
-import { validateLogin } from "../utils/validation";
+import LoginFormInputs from "../../components/auth/LoginFormInputs";
+import { useSupabaseAuth, useUserContext } from "../../supabase";
+import { getRedirectUrl } from "../../utils/oauth";
+import { validateLogin } from "../../utils/validation";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
