@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { getImageUrl } from "../utils/apiUrls";
+import { getImageUrl } from "../../utils/apiUrls";
 
 function MovieCard({ id, title, posterPath, voteAverage }) {
   const navigate = useNavigate();

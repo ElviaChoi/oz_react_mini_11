@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FormInput from "../components/FormInput";
+import FormInput from "../components/common/FormInput";
 import { useSupabaseAuth } from "../supabase";
 import {
   validateName,

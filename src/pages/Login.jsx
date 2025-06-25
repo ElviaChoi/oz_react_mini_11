@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FormInput from "../components/FormInput";
+import FormInput from "../components/common/FormInput";
 import { useSupabaseAuth, useUserContext } from "../supabase";
 import { getRedirectUrl } from "../utils/oauth";
 import { validateEmail, validatePassword } from "../utils/validation";

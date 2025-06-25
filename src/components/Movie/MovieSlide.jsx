@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import { getImageUrl } from "../utils/apiUrls";
+import { getImageUrl } from "../../utils/apiUrls";
 import { useNavigate } from "react-router-dom";
 
 function MovieSlide({ movies }) {
