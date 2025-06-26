@@ -31,8 +31,6 @@ function Login() {
     try {
       const res = await login({ email: form.email, password: form.password });
       if (res?.user) setUser(res.user);
-
-      alert("로그인 성공!");
       navigate("/");
     } catch (error) {
       alert(`로그인 실패: ${error.message}`);

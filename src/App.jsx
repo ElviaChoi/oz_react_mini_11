@@ -6,6 +6,7 @@ import MovieDetail from "./pages/movies/MovieDetail";
 import SearchResult from "./pages/search/SearchResult";
 import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
+import MyPage from "./pages/mypage/Mypage";
 
 import { useSupabaseAuth, useUserContext } from "./supabase";
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/" element={<MovieList />} />
         <Route path="/details/:id" element={<MovieDetail />} />
         <Route path="/search" element={<SearchResult />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Route>
     </Routes>
   );

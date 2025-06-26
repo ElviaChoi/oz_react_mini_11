@@ -43,7 +43,10 @@ function UserMenu() {
       {menuOpen && (
         <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow z-50">
           <button
-            onClick={() => alert("마이페이지 이동")}
+            onClick={() => {
+              navigate("/mypage");
+              setMenuOpen(false);
+            }}
             className="block w-full px-4 py-2 hover:bg-gray-100 text-left"
           >
             마이페이지
