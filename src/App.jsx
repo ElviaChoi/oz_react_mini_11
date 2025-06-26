@@ -6,7 +6,7 @@ import MovieDetail from "./pages/movies/MovieDetail";
 import SearchResult from "./pages/search/SearchResult";
 import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
-import MyPage from "./pages/mypage/Mypage";
+import MyPage from "./pages/mypage/MyPage";
 
 import { useSupabaseAuth, useUserContext } from "./supabase";
 
