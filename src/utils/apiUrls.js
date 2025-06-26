@@ -5,7 +5,8 @@ const BASE_URL = "https://api.themoviedb.org/3/movie";
 export const getImageUrl = (path) => `https://image.tmdb.org/t/p/w500${path}`;
 
 // 인기 영화 목록 URL
-export const getPopularMoviesUrl = () => `${BASE_URL}/popular?language=ko`;
+export const getPopularMoviesUrl = (page = 1) =>
+  `${BASE_URL}/popular?language=ko&page=${page}`;
 
 // 영화 상세정보 URL
 export const getMovieDetailUrl = (id) => `${BASE_URL}/${id}?language=ko`;

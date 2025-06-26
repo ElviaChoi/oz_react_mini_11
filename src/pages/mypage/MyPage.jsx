@@ -24,7 +24,7 @@ function MyPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-200 px-4">
       <div className="w-full max-w-4xl bg-white rounded-xl shadow-md p-8">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8">
           {/* 왼쪽 프로필 */}
