@@ -22,10 +22,11 @@ function MyPage() {
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const promises = bookmarkIds.map((id) =>
+      const bookmarkFetchTasks = bookmarkIds.map((id) =>
         fetch(getMovieDetailUrl(id), TMDB_GET_OPTION).then((res) => res.json())
       );
-      const results = await Promise.all(promises);
+      const results = await Promise.all(bookmarkFetchTasks);
+
       setMovies(results);
     };
 
@@ -51,33 +52,38 @@ function MyPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-200 px-4 py-[180px]">
-      <div className="w-full max-w-4xl bg-white rounded-xl shadow-md p-8">
+    <div className="min-h-screen bg-gray-950 px-4 pt-[150px] pb-24 text-white">
+      <div className="max-w-4xl mx-auto bg-white/5 rounded-xl backdrop-blur p-8 shadow-xl border border-white/20">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8">
-          <div className="w-32 h-32 bg-sky-400 text-white rounded-full ml-6 mr-7 flex items-center justify-center text-4xl font-bold">
+          <div className="w-36 h-30 bg-sky-500 rounded-full flex items-center justify-center text-4xl font-bold shadow-lg ring-4 ring-white/30">
             {user.email?.charAt(0).toUpperCase()}
           </div>
 
-          <div className="text-center sm:text-left">
+          <div className="text-center sm:text-left space-y-2 w-full">
             <div className="flex items-center justify-center sm:justify-start gap-3">
-              <h2 className="text-2xl font-semibold">{user.userName}</h2>
-              <button className="text-sm text-sky-500 hover:underline">
+              <h2 className="text-2xl font-bold text-sky-300">
+                {user.userName}
+              </h2>
+              <button className="text-sm text-sky-400 hover:underline">
                 닉네임 수정
               </button>
             </div>
-            <p className="text-gray-600 mt-1">{user.email}</p>
-            <button className="mt-4 text-sm text-sky-500 hover:underline">
-              프로필 이미지 수정
-            </button>
+            <p className="text-gray-300">{user.email}</p>
+            <div className="flex justify-center sm:justify-start gap-3">
+              <button className="text-sm text-sky-400 hover:underline">
+                프로필 이미지 수정
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* 북마크 */}
-        <div className="mt-12 border-t pt-6">
+        <div className="mt-12 border-t border-white/10 pt-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold">북마크</h3>
+            <h3 className="text-xl font-semibold text-sky-300">
+              📌 나의 북마크
+            </h3>
             <button
-              className="text-red-500 hover:text-red-700"
+              className="text-red-400 hover:text-red-600 text-base"
               onClick={() => {
                 if (confirm("북마크를 모두 삭제하시겠습니까?")) {
                   localStorage.removeItem("bookmarks");
@@ -85,7 +91,7 @@ function MyPage() {
                 }
               }}
             >
-              🗑️
+              모두 삭제 🗑️
             </button>
           </div>
 
