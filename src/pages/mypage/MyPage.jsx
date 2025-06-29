@@ -1,4 +1,4 @@
-import { useUserContext } from "../../supabase";
+import { useUserContext, useSupabaseAuth } from "../../supabase";
 import { useEffect, useState, useCallback } from "react";
 import MovieCard from "../../components/Movie/MovieCard";
 import { getMovieDetailUrl } from "../../utils/apiUrls";
@@ -6,10 +6,15 @@ import { TMDB_GET_OPTION } from "../../constants";
 import Avatar from "../../components/common/Avatar";
 
 function MyPage() {
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
+  const { updateUserName } = useSupabaseAuth();
+
   const [loading, setLoading] = useState(true);
   const [bookmarkIds, setBookmarkIds] = useState([]);
   const [movies, setMovies] = useState([]);
+
+  const [editing, setEditing] = useState(false);
+  const [newName, setNewName] = useState(user?.userName || "");
 
   const syncBookmarks = useCallback(() => {
     const saved = JSON.parse(localStorage.getItem("bookmarks")) || [];
@@ -60,13 +65,57 @@ function MyPage() {
 
           <div className="text-center sm:text-left space-y-2 w-full">
             <div className="flex items-center justify-center sm:justify-start gap-3">
-              <h2 className="text-2xl font-bold text-sky-300">
-                {user.userName}
-              </h2>
-              <button className="text-sm text-sky-400 hover:underline">
-                닉네임 수정
-              </button>
+              {editing ? (
+                <>
+                  <input
+                    type="text"
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                    className="bg-transparent border-b border-sky-400 text-white focus:outline-none text-base"
+                  />
+                  <button
+                    onClick={async () => {
+                      if (newName.trim() === "") {
+                        alert("닉네임을 입력해주세요");
+                        return;
+                      }
+                      try {
+                        const updated = await updateUserName(newName);
+                        setUser(updated.user);
+                        setEditing(false);
+                      } catch (err) {
+                        alert("닉네임 변경 실패: " + err.message);
+                      }
+                    }}
+                    className="text-md text-green-400 hover:underline"
+                  >
+                    저장
+                  </button>
+                  <button
+                    onClick={() => {
+                      setNewName(user.userName);
+                      setEditing(false);
+                    }}
+                    className="text-md text-red-400 hover:underline"
+                  >
+                    취소
+                  </button>
+                </>
+              ) : (
+                <>
+                  <h2 className="text-2xl font-bold text-sky-300">
+                    {user.userName}
+                  </h2>
+                  <button
+                    className="text-sm text-sky-400 hover:underline"
+                    onClick={() => setEditing(true)}
+                  >
+                    닉네임 수정
+                  </button>
+                </>
+              )}
             </div>
+
             <p className="text-gray-300">{user.email}</p>
             <div className="flex justify-center sm:justify-start gap-3">
               <button className="text-sm text-sky-400 hover:underline">

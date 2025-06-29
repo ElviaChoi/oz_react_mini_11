@@ -3,19 +3,22 @@ import { DTO_TYPE } from "./config";
 // User data 매핑용 함수
 export const changeFromDto = ({ type, dto }) => {
   switch (type) {
-    case DTO_TYPE.user:
-      const { user_metadata: userInfo } = dto?.user;
+    case DTO_TYPE.user: {
+      const user = dto?.user;
+
       return {
         user: {
-          id: userInfo.sub,
-          email: userInfo.email,
-          userName: userInfo.userName
-            ? userInfo.userName
-            : userInfo.email.split("@")[0],
-          profileImageUrl: "/images/profile.png",
+          id: user?.id || "",
+          email: user?.email || "",
+          userName:
+            user?.user_metadata?.user_name || user?.email?.split("@")[0] || "",
+          profileImageUrl:
+            user?.user_metadata?.avatar_url || "/images/profile.png",
         },
       };
-    case DTO_TYPE.error:
+    }
+
+    case DTO_TYPE.error: {
       if (!dto.error) {
         return {
           error: {
@@ -25,6 +28,7 @@ export const changeFromDto = ({ type, dto }) => {
           },
         };
       }
+
       const { error: rawError } = dto;
 
       return {
@@ -33,9 +37,9 @@ export const changeFromDto = ({ type, dto }) => {
           message: rawError.message,
         },
       };
+    }
 
     default:
-      new Error("wrong type accessed");
-      return;
+      throw new Error("잘못된 DTO_TYPE입니다.");
   }
 };

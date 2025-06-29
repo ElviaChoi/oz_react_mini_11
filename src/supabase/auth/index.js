@@ -4,7 +4,7 @@ import { useOAuth } from "./useOauth.auth";
 
 export const useSupabaseAuth = () => {
   const { getUserInfo, logout } = useAuth();
-  const { login, signUp } = useEmailAuth();
+  const { login, signUp, updateUserName } = useEmailAuth();
   const { loginWithGoogle, loginWithKakao } = useOAuth();
 
   return {
@@ -14,5 +14,6 @@ export const useSupabaseAuth = () => {
     logout,
     loginWithKakao,
     loginWithGoogle,
+    updateUserName,
   };
 };

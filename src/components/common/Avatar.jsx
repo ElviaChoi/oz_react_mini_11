@@ -8,14 +8,15 @@ function Avatar({ user, size = "md", onClick }) {
 
   const initials = user?.email?.charAt(0).toUpperCase() || "?";
 
+  const avatarUrl = user?.avatarUrl || user?.user_metadata?.avatar_url || "";
   const hasImage =
-    !!user?.profileImageUrl &&
-    user.profileImageUrl.trim() !== "" &&
-    user.profileImageUrl !== "/images/profile.png"; // 기본값도 제외
+    !!avatarUrl &&
+    avatarUrl.trim() !== "" &&
+    avatarUrl !== "/images/profile.png";
 
   return hasImage ? (
     <img
-      src={user.profileImageUrl}
+      src={avatarUrl}
       alt="profile"
       onClick={onClick}
       className={`${sizeClass} rounded-full object-cover cursor-pointer`}
