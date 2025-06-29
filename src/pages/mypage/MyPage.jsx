@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import MovieCard from "../../components/Movie/MovieCard";
 import { getMovieDetailUrl } from "../../utils/apiUrls";
 import { TMDB_GET_OPTION } from "../../constants";
+import Avatar from "../../components/common/Avatar";
 
 function MyPage() {
   const { user } = useUserContext();
@@ -55,9 +56,7 @@ function MyPage() {
     <div className="min-h-screen bg-gray-950 px-4 pt-[150px] pb-24 text-white">
       <div className="max-w-4xl mx-auto bg-white/5 rounded-xl backdrop-blur p-8 shadow-xl border border-white/20">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8">
-          <div className="w-36 h-30 bg-sky-500 rounded-full flex items-center justify-center text-4xl font-bold shadow-lg ring-4 ring-white/30">
-            {user.email?.charAt(0).toUpperCase()}
-          </div>
+          <Avatar user={user} size="lg" />
 
           <div className="text-center sm:text-left space-y-2 w-full">
             <div className="flex items-center justify-center sm:justify-start gap-3">

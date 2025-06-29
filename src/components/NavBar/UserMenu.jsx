@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserContext, useSupabaseAuth } from "../../supabase";
+import Avatar from "../common/Avatar";
 
 function UserMenu() {
   const navigate = useNavigate();
@@ -34,10 +35,9 @@ function UserMenu() {
   }
   return (
     <div className="relative">
-      <img
-        src={user?.profileImageUrl || "/images/profile.png"}
-        alt="profile"
-        className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full cursor-pointer object-cover"
+      <Avatar
+        user={user}
+        size="md"
         onClick={() => setMenuOpen((prev) => !prev)}
       />
       {menuOpen && (
