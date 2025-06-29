@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getImageUrl, getMovieDetailUrl } from "../../utils/apiUrls";
 import { TMDB_GET_OPTION } from "../../constants";
+import { useUserContext } from "../../supabase";
+import useBookmark from "../../hooks/useBookmark";
+import { MdPushPin, MdOutlinePushPin } from "react-icons/md";
 
 function MovieDetail() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
+  const { user } = useUserContext();
+  const { isBookmarked, addBookmark, removeBookmark } = useBookmark(Number(id));
 
   useEffect(() => {
     fetch(getMovieDetailUrl(id), TMDB_GET_OPTION)
@@ -23,6 +28,19 @@ function MovieDetail() {
   const posterUrl = getImageUrl(movie.poster_path);
   const genres = movie.genres?.map((g) => g.name).join(", ");
 
+  const handleBookmarkClick = () => {
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
+    if (isBookmarked) {
+      removeBookmark(Number(id));
+    } else {
+      addBookmark(Number(id));
+    }
+  };
+
   return (
     <section
       className="pt-[150px] sm:pt-[120px] md:pt-[130px] min-h-[calc(100vh+200px)] bg-cover bg-center text-white bg-[#0f172a]"
@@ -30,15 +48,25 @@ function MovieDetail() {
         backgroundImage: movie.backdrop_path ? `url(${backdropUrl})` : "none",
       }}
     >
-      {/* 어두운 배경 오버레이 */}
       {movie.backdrop_path && (
         <div className="absolute top-0 left-0 w-full min-h-[calc(100%+200px)] bg-black/50 backdrop-blur-sm z-0 pointer-events-none" />
       )}
 
-      {/* 콘텐츠 */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center justify-center gap-12 text-center">
         {/* 포스터 */}
         <div className="relative group w-full md:w-[320px] lg:w-[380px] rounded-xl">
+          {/* ⭐ 북마크 버튼 */}
+          <button
+            onClick={handleBookmarkClick}
+            className="absolute top-5 right-4 z-20 text-6xl"
+          >
+            {isBookmarked ? (
+              <MdPushPin className="text-red-500" />
+            ) : (
+              <MdOutlinePushPin className="text-sky-400" />
+            )}
+          </button>
+
           <img
             src={posterUrl}
             alt={movie.title}
