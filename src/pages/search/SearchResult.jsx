@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getSearchMoviesUrl } from "../../utils/apiUrls";
 import { TMDB_GET_OPTION } from "../../constants";
 import MovieCard from "../../components/Movie/MovieCard";
+import { filterSafeMovies } from "../../utils/filterMovies";
 
 function SearchResult() {
   const [searchParams] = useSearchParams();
@@ -15,7 +16,7 @@ function SearchResult() {
       fetch(getSearchMoviesUrl(query), TMDB_GET_OPTION)
         .then((res) => res.json())
         .then((data) => {
-          setResults(data.results);
+          setResults(filterSafeMovies(data.results));
         });
     }
   }, [query]);

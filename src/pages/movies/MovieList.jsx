@@ -4,6 +4,7 @@ import { TMDB_GET_OPTION } from "../../constants";
 import MovieCard from "../../components/Movie/MovieCard";
 import MovieSlide from "../../components/Movie/MovieSlide";
 import useThrottle from "../../hooks/useThrottle";
+import { filterSafeMovies } from "../../utils/filterMovies";
 
 function MovieList() {
   const [movies, setMovies] = useState([]);
@@ -17,7 +18,7 @@ function MovieList() {
     try {
       const res = await fetch(getPopularMoviesUrl(pageNum), TMDB_GET_OPTION);
       const data = await res.json();
-      const filtered = data.results.filter((movie) => !movie.adult);
+      const filtered = filterSafeMovies(data.results);
 
       if (filtered.length === 0) {
         setHasMore(false);
