@@ -42,6 +42,11 @@ function NavBar() {
           value={searchInput}
           onChange={handleInputChange}
           onKeyDown={handleSearchEnter}
+          onSearch={() => {
+            if (searchInput) {
+              navigate(`/search?query=${searchInput}`);
+            }
+          }}
         />
         <UserMenu />
       </div>
