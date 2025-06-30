@@ -43,13 +43,13 @@ function MovieDetail() {
 
   return (
     <section
-      className="pt-[150px] sm:pt-[120px] md:pt-[130px] min-h-[calc(100vh+200px)] bg-cover bg-center text-white bg-[#0f172a]"
+      className="relative pt-[200px] sm:pt-[100px] md:pt-[130px] min-h-[calc(100vh+200px)] bg-cover bg-center text-white bg-[#0f172a]"
       style={{
         backgroundImage: movie.backdrop_path ? `url(${backdropUrl})` : "none",
       }}
     >
       {movie.backdrop_path && (
-        <div className="absolute top-0 left-0 w-full min-h-[calc(100%+200px)] bg-black/50 backdrop-blur-sm z-0 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm z-0 pointer-events-none" />
       )}
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center justify-center gap-12 text-center">

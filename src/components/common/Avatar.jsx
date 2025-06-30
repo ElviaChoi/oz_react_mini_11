@@ -2,7 +2,7 @@ function Avatar({ user, size = "md", onClick }) {
   const sizeMap = {
     sm: "w-10 h-10 text-sm",
     md: "w-16 h-16 text-xl",
-    lg: "w-36 h-30 text-4xl",
+    lg: "w-36 h-36 text-4xl",
   };
   const sizeClass = sizeMap[size] || sizeMap.md;
 
@@ -19,7 +19,7 @@ function Avatar({ user, size = "md", onClick }) {
       src={avatarUrl}
       alt="profile"
       onClick={onClick}
-      className={`${sizeClass} rounded-full object-cover cursor-pointer`}
+      className={`${sizeClass} aspect-square object-cover rounded-full`}
     />
   ) : (
     <div

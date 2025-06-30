@@ -63,7 +63,7 @@ function MovieList() {
   }, [handleScroll]);
 
   return (
-    <div className="pt-[140px] sm:pt-[120px] md:pt-[120px] min-h-[calc(100vh+100px)] bg-gray-950 px-4 sm:px-6 lg:px-8 space-y-16 pb-24">
+    <div className="pt-[220px] sm:pt-[120px] md:pt-[120px] min-h-[calc(100vh+100px)] bg-gray-950 px-4 sm:px-6 lg:px-8 space-y-16 pb-24">
       {/* 🎬 추천 영화 섹션 */}
       <section>
         <h2 className="font-bold text-[34px] text-center text-white mb-2 pt-6">

@@ -58,10 +58,12 @@ function MyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 px-4 pt-[150px] pb-24 text-white">
+    <div className="min-h-screen bg-gray-950 px-4 pt-[240px] sm:pt-[140px] md:pt-[150px] pb-24 text-white">
       <div className="max-w-4xl mx-auto bg-white/5 rounded-xl backdrop-blur p-8 shadow-xl border border-white/20">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8">
-          <Avatar user={user} size="lg" />
+          <div className="w-[144px] h-[144px] mx-auto sm:mx-0">
+            <Avatar user={user} size="lg" />
+          </div>
 
           <div className="text-center sm:text-left space-y-2 w-full">
             <div className="flex items-center justify-center sm:justify-start gap-3">

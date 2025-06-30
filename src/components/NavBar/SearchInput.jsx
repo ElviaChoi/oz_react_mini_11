@@ -1,6 +1,6 @@
 function SearchInput({ value, onChange, onKeyDown }) {
   return (
-    <div className="w-full sm:flex-1 sm:px-6 flex justify-center">
+    <div className="w-full sm:flex-1 mb-3 sm:px-6 flex justify-center">
       <input
         type="text"
         value={value}

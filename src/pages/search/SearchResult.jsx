@@ -23,7 +23,7 @@ function SearchResult() {
   return (
     <section className="pt-[180px] sm:pt-[120px] md:pt-[130px] min-h-[calc(100vh+100px)] bg-gray-950 text-gray-900 px-6 py-16">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-sky-600">
+        <h2 className="text-2xl pt-[60px] md:text-3xl font-bold text-center mb-8 text-sky-600">
           🎞 '{query}' 검색 결과 🎞
         </h2>
 
