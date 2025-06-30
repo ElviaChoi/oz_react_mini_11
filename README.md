@@ -16,42 +16,38 @@ TMDB API와 Supabase를 활용하여 인기 영화를 탐색하고, 유저 인�
 
 ---
 
-```
 ## 📁 폴더 구조
 
 ```
-
 src/
 ├── components/
-│ ├── common/
-│ ├── FormInputs/
-│ ├── Layout/
-│ ├── Movie/
-│ └── NavBar/
+│   ├── common/
+│   ├── FormInputs/
+│   ├── Layout/
+│   ├── Movie/
+│   └── NavBar/
 ├── pages/
-│ ├── auth/
-│ │ ├── Login.jsx
-│ │ └── Signup.jsx
-│ ├── movies/
-│ │ ├── MovieList.jsx
-│ │ └── MovieDetail.jsx
-│ ├── mypage/
-│ │ └── MyPage.jsx
-│ └── search/
-│ └── SearchResult.jsx
+│   ├── auth/
+│   │   ├── Login.jsx
+│   │   └── Signup.jsx
+│   ├── movies/
+│   │   ├── MovieList.jsx
+│   │   └── MovieDetail.jsx
+│   ├── mypage/
+│   │   └── MyPage.jsx
+│   └── search/
+│       └── SearchResult.jsx
 ├── hooks/
 ├── supabase/
-│ ├── auth/
-│ ├── context/
-│ └── utilities/
+│   ├── auth/
+│   ├── context/
+│   └── utilities/
 ├── utils/
-│ ├── apiUrls.js
-│ └── filterMovies.js
+│   ├── apiUrls.js
+│   └── filterMovies.js
 ├── App.jsx
 └── main.jsx
-
-````
-
+```
 
 ---
 
@@ -77,9 +73,9 @@ cd oz_react_mini_11
 # 2. 패키지 설치
 npm install
 
-# 3. 환경변수 설정
-# 루트 디렉토리에 .env 파일을 생성하고 아래 항목 추가
-````
+# 3. 환경변수 설정 (.env 파일 생성)
+# 루트 디렉토리에 .env 파일을 만들고 아래 항목 추가
+```
 
 ```
 VITE_TMDB_READ_ACCESS_TOKEN=YOUR_TMDB_ACCESS_TOKEN
