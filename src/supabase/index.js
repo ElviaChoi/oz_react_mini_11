@@ -1,3 +1,3 @@
 export * from "./auth";
-export * from "./context";
+export * from "./context/UserContext";
 export * from "./utilities";

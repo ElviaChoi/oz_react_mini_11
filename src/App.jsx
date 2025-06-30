@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
+import Layout from "./components/Layout/index";
 import MovieList from "./pages/movies/MovieList";
 import MovieDetail from "./pages/movies/MovieDetail";
 import SearchResult from "./pages/search/SearchResult";
