@@ -7,32 +7,19 @@ import {
 } from "../utilities";
 
 export const useAuth = () => {
-  let supabase;
-  try {
-    supabase = useSupabase();
-  } catch (error) {
-    // Supabase is not initialized, return mock functions
-    const mockAuth = () => {
-      console.warn("Supabase not initialized. Auth functions are disabled.");
-      return Promise.resolve({ data: null, error: null });
-    };
-    return { logout: mockAuth, getUserInfo: mockAuth };
-  }
-
+  const supabase = useSupabase();
   const {
     getItemFromLocalStorage,
     removeItemFromLocalStorage,
     setItemToLocalStorage,
   } = localStorageUtils();
 
-  // 로그아웃
   const logout = async () => {
     removeItemFromLocalStorage(USER_INFO_KEY.sbKey);
     removeItemFromLocalStorage(USER_INFO_KEY.customKey);
     return await supabase.auth.signOut();
   };
 
-  // user 정보 가져오기
   const getUserInfo = async () => {
     const data = getItemFromLocalStorage(USER_INFO_KEY.sbKey);
     if (data) {

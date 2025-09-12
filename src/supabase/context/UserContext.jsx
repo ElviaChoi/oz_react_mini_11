@@ -2,10 +2,10 @@ import { createContext, useContext, useState } from "react";
 import { supabaseEnv } from "../utilities";
 import { createClient } from "@supabase/supabase-js";
 
-export const supabaseClient =
-  supabaseEnv.projectURL && supabaseEnv.apiKey
-    ? createClient(supabaseEnv.projectURL, supabaseEnv.apiKey)
-    : null;
+export const supabaseClient = createClient(
+  supabaseEnv.projectURL,
+  supabaseEnv.apiKey
+);
 
 const SUPABASE = createContext(null);
 

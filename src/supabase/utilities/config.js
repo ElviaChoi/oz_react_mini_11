@@ -1,11 +1,9 @@
 import { supabaseEnv } from "./env";
 
 // localStorage Key
-const projectID = supabaseEnv.projectURL?.split('//')[1]?.split('.')[0];
-
 export const USER_INFO_KEY = {
-  sbKey: projectID ? `sb-${projectID}-auth-token` : 'sb-auth-token',
-  customKey: 'userInfo',
+  sbKey: `sb-${supabaseEnv.projectURL.split("//")[1].split(".")[0]}-auth-token`,
+  customKey: "userInfo",
 };
 
 // data transfer object type

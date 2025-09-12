@@ -1,4 +1,3 @@
-// 로컬 스토리지 사용 함수
 export const localStorageUtils = () => {
   const setItemToLocalStorage = (itemKey, item) => {
     const strItem = JSON.stringify(item);

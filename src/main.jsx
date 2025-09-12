@@ -6,12 +6,21 @@ import App from "./App.jsx";
 
 import { SupabaseProvider } from "./supabase";
 
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
-      <SupabaseProvider>
-        <App />
-      </SupabaseProvider>
-    </BrowserRouter>
-  </StrictMode>
-);
+async function enableMocking() {
+  if (import.meta.env.DEV) {
+    const { worker } = await import("./mocks/browser");
+    return worker.start();
+  }
+}
+
+enableMocking().then(() => {
+  createRoot(document.getElementById("root")).render(
+    <StrictMode>
+      <BrowserRouter>
+        <SupabaseProvider>
+          <App />
+        </SupabaseProvider>
+      </BrowserRouter>
+    </StrictMode>
+  );
+});
