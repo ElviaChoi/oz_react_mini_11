@@ -12,7 +12,8 @@ const useSearchStore = create((set) => ({
   fetchSearchResults: async (query) => {
     set({ isLoading: true });
     try {
-      const response = await axios.get(getSearchMoviesUrl(query), TMDB_GET_OPTION);
+      const url = getSearchMoviesUrl(query);
+      const response = await axios.get(url, TMDB_GET_OPTION);
       set({ searchResults: filterSafeMovies(response.data.results), isLoading: false });
     } catch (error) {
       console.error("Failed to fetch search results:", error);

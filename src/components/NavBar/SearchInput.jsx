@@ -12,7 +12,7 @@ function SearchInput() {
 
   useEffect(() => {
     if (debouncedSearchQuery && debouncedSearchQuery !== prevQueryRef.current) {
-      if (location.pathname === '/' || location.pathname.startsWith('/details')) {
+      if (location.pathname === '/' || location.pathname.startsWith('/details') || location.pathname.startsWith('/mypage')) {
         navigate(`/search?query=${debouncedSearchQuery}`);
       }
       fetchSearchResults(debouncedSearchQuery);
