@@ -4,6 +4,7 @@ import MovieCard from "../../components/Movie/MovieCard";
 import { getMovieDetailUrl } from "../../utils/apiUrls";
 import { TMDB_GET_OPTION } from "../../constants";
 import Avatar from "../../components/common/Avatar";
+import axios from 'axios';
 
 function MyPage() {
   const { user, setUser } = useUserContext();
@@ -28,9 +29,15 @@ function MyPage() {
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const bookmarkFetchTasks = bookmarkIds.map((id) =>
-        fetch(getMovieDetailUrl(id), TMDB_GET_OPTION).then((res) => res.json())
-      );
+      const bookmarkFetchTasks = bookmarkIds.map(async (id) => {
+        try {
+          const response = await axios.get(getMovieDetailUrl(id), TMDB_GET_OPTION);
+          return response.data;
+        } catch (error) {
+          console.error("Error fetching movie detail for ID:", id, error);
+          return null; // Or handle error as appropriate
+        }
+      });
       const results = await Promise.all(bookmarkFetchTasks);
 
       setMovies(results);

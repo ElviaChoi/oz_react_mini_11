@@ -4,6 +4,7 @@ import { getSearchMoviesUrl } from "../../utils/apiUrls";
 import { TMDB_GET_OPTION } from "../../constants";
 import MovieCard from "../../components/Movie/MovieCard";
 import { filterSafeMovies } from "../../utils/filterMovies";
+import axios from 'axios';
 
 function SearchResult() {
   const [searchParams] = useSearchParams();
@@ -12,13 +13,19 @@ function SearchResult() {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    if (query) {
-      fetch(getSearchMoviesUrl(query), TMDB_GET_OPTION)
-        .then((res) => res.json())
-        .then((data) => {
-          setResults(filterSafeMovies(data.results));
-        });
-    }
+    const fetchSearchResults = async () => {
+      if (query) {
+        try {
+          const response = await axios.get(getSearchMoviesUrl(query), TMDB_GET_OPTION);
+          setResults(filterSafeMovies(response.data.results));
+        } catch (error) {
+          console.error("Error fetching search results:", error);
+          setResults([]);
+        }
+      }
+    };
+
+    fetchSearchResults();
   }, [query]);
 
   return (
