@@ -5,12 +5,14 @@ import { TMDB_GET_OPTION } from "../../constants";
 import { useUserContext } from "../../supabase";
 import useBookmark from "../../hooks/useBookmark";
 import { MdPushPin, MdOutlinePushPin } from "react-icons/md";
+import { useToast } from "../../components/Toast";
 
 function MovieDetail() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const { user } = useUserContext();
   const { isBookmarked, addBookmark, removeBookmark } = useBookmark(Number(id));
+  const { showToast } = useToast();
 
   useEffect(() => {
     fetch(getMovieDetailUrl(id), TMDB_GET_OPTION)
@@ -30,7 +32,7 @@ function MovieDetail() {
 
   const handleBookmarkClick = () => {
     if (!user) {
-      alert("로그인이 필요합니다.");
+      showToast("로그인이 필요합니다.", "error");
       return;
     }
 

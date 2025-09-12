@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App.jsx";
 
 import { SupabaseProvider } from "./supabase";
+import { ToastProvider } from "./components/Toast";
 
 async function enableMocking() {
   if (import.meta.env.DEV) {
@@ -18,7 +19,9 @@ enableMocking().then(() => {
     <StrictMode>
       <BrowserRouter>
         <SupabaseProvider>
-          <App />
+          <ToastProvider>
+            <App />
+          </ToastProvider>
         </SupabaseProvider>
       </BrowserRouter>
     </StrictMode>

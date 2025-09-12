@@ -4,6 +4,9 @@ import SignupFormInputs from "../../components/FormInputs/SignupFormInputs";
 import { useSupabaseAuth } from "../../supabase";
 import { validateSignup } from "../../utils/validation";
 import { FiUserPlus } from "react-icons/fi";
+import { useToast } from "../../components/Toast";
+
+const baseButtonClasses = "w-full py-3 rounded-full font-semibold transition flex items-center justify-center gap-2";
 
 function Signup() {
   const [form, setForm] = useState({
@@ -16,6 +19,7 @@ function Signup() {
 
   const navigate = useNavigate();
   const { signUp } = useSupabaseAuth();
+  const { showToast } = useToast();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,10 +43,10 @@ function Signup() {
         userName: form.name,
       });
 
-      alert("회원가입 성공!");
+      showToast("회원가입 성공!", "success");
       navigate("/login");
     } catch (error) {
-      alert(`회원가입 실패: ${error.message}`);
+      showToast(`회원가입 실패: ${error.message}`, "error");
     }
   };
 
@@ -63,7 +67,7 @@ function Signup() {
 
         <SignupFormInputs form={form} errors={errors} onChange={handleChange} />
 
-        <button className="w-full mt-6 py-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full font-semibold transition flex items-center justify-center gap-2">
+        <button className={`${baseButtonClasses} mt-6 bg-sky-400 hover:bg-sky-500 text-black`}>
           <FiUserPlus />
           회원가입
         </button>

@@ -7,6 +7,9 @@ import { validateLogin } from "../../utils/validation";
 import { FiLogIn } from "react-icons/fi";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
+import { useToast } from "../../components/Toast";
+
+const baseButtonClasses = "w-full py-3 rounded-full font-semibold transition flex items-center justify-center gap-2";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -15,6 +18,7 @@ function Login() {
   const navigate = useNavigate();
   const { login, loginWithKakao, loginWithGoogle } = useSupabaseAuth();
   const { setUser } = useUserContext();
+  const { showToast } = useToast();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +40,7 @@ function Login() {
       if (res?.user) setUser(res.user);
       navigate("/");
     } catch (error) {
-      alert(`로그인 실패: ${error.message}`);
+      showToast(`로그인 실패: ${error.message}`, "error");
     }
   };
 
@@ -59,7 +63,7 @@ function Login() {
 
         <button
           type="submit"
-          className="w-full mt-6 py-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full font-semibold transition flex items-center justify-center gap-2"
+          className={`${baseButtonClasses} mt-6 bg-sky-400 hover:bg-sky-500 text-black`}
         >
           <FiLogIn />
           로그인
@@ -68,7 +72,7 @@ function Login() {
         <button
           onClick={() => loginWithKakao(getRedirectUrl())}
           type="button"
-          className="w-full mt-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-black rounded-full font-semibold transition flex items-center justify-center gap-2"
+          className={`${baseButtonClasses} mt-4 bg-yellow-300 hover:bg-yellow-400 text-black`}
         >
           <RiKakaoTalkFill />
           카카오로 로그인
@@ -77,7 +81,7 @@ function Login() {
         <button
           onClick={() => loginWithGoogle(getRedirectUrl())}
           type="button"
-          className="w-full mt-4 py-3 bg-white border border-gray-50 hover:bg-gray-100 text-black rounded-full font-semibold transition flex items-center justify-center gap-2"
+          className={`${baseButtonClasses} mt-4 bg-white border border-gray-50 hover:bg-gray-100 text-black`}
         >
           <FcGoogle />
           구글로 로그인

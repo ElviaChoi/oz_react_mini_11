@@ -5,10 +5,12 @@ import { getMovieDetailUrl } from "../../utils/apiUrls";
 import { TMDB_GET_OPTION } from "../../constants";
 import Avatar from "../../components/common/Avatar";
 import axios from 'axios';
+import { useToast } from "../../components/Toast";
 
 function MyPage() {
   const { user, setUser } = useUserContext();
   const { updateUserName } = useSupabaseAuth();
+  const { showToast } = useToast();
 
   const [loading, setLoading] = useState(true);
   const [bookmarkIds, setBookmarkIds] = useState([]);
@@ -85,7 +87,7 @@ function MyPage() {
                   <button
                     onClick={async () => {
                       if (newName.trim() === "") {
-                        alert("닉네임을 입력해주세요");
+                        showToast("닉네임을 입력해주세요", "error");
                         return;
                       }
                       try {
@@ -93,7 +95,7 @@ function MyPage() {
                         setUser(updated.user);
                         setEditing(false);
                       } catch (err) {
-                        alert("닉네임 변경 실패: " + err.message);
+                        showToast("닉네임 변경 실패: " + err.message, "error");
                       }
                     }}
                     className="text-md text-green-400 hover:underline"

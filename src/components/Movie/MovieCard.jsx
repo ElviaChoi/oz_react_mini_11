@@ -3,10 +3,12 @@ import { getImageUrl } from "../../utils/apiUrls";
 import { useUserContext } from "../../supabase";
 import useBookmark from "../../hooks/useBookmark";
 import { MdPushPin, MdOutlinePushPin } from "react-icons/md";
+import { useToast } from "../../components/Toast";
 
 function MovieCard({ id, title, posterPath, voteAverage, onBookmarkChange }) {
   const navigate = useNavigate();
   const imageUrl = getImageUrl(posterPath);
+  const { showToast } = useToast();
 
   const { user } = useUserContext();
   const { isBookmarked, addBookmark, removeBookmark } = useBookmark(id);
@@ -18,7 +20,7 @@ function MovieCard({ id, title, posterPath, voteAverage, onBookmarkChange }) {
   const handleBookmarkClick = (e) => {
     e.stopPropagation();
     if (!user) {
-      alert("로그인이 필요합니다.");
+      showToast("로그인이 필요합니다.", "error");
       return;
     }
 
@@ -29,7 +31,7 @@ function MovieCard({ id, title, posterPath, voteAverage, onBookmarkChange }) {
     }
 
     if (onBookmarkChange) {
-      onBookmarkChange();
+      onBookmarkChange(); // 상위 컴포넌트에 변경 알림
     }
   };
 
