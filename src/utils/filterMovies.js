@@ -1,5 +1,5 @@
 export const filterSafeMovies = (movies) => {
-  const bannedGenres = [10749]; //로맨스 영화 필터링
+  const bannedGenres = [10749];
   const bannedKeywords = [
     "erotic",
     "adult",

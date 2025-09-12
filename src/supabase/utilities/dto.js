@@ -1,6 +1,5 @@
 import { DTO_TYPE } from "./config";
 
-// User data 매핑용 함수
 export const changeFromDto = ({ type, dto }) => {
   switch (type) {
     case DTO_TYPE.user: {

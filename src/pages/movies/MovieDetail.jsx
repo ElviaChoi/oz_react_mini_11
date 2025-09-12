@@ -53,9 +53,7 @@ function MovieDetail() {
       )}
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center justify-center gap-12 text-center">
-        {/* 포스터 */}
         <div className="relative group w-full md:w-[320px] lg:w-[380px] rounded-xl">
-          {/* ⭐ 북마크 버튼 */}
           <button
             onClick={handleBookmarkClick}
             className="absolute top-5 right-4 z-20 text-6xl"
@@ -75,7 +73,6 @@ function MovieDetail() {
           <div className="absolute -inset-3 rounded-2xl z-0 group-hover:bg-white/10 group-hover:blur-md transition duration-300" />
         </div>
 
-        {/* 텍스트 정보 */}
         <div className="flex-1 space-y-6 max-w-xl mx-auto relative z-10">
           <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-300 to-white">
             {movie.title}

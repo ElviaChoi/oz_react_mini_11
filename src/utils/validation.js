@@ -1,4 +1,3 @@
-//  1. 이메일 유효성 검사
 export const validateEmail = (email) => {
   const emailRegex = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegex.test(email)) {
@@ -7,7 +6,6 @@ export const validateEmail = (email) => {
   return "";
 };
 
-//  2. 비밀번호 유효성 검사 (공통: 로그인/회원가입)
 export const validatePassword = (password) => {
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
   if (!passwordRegex.test(password)) {
@@ -16,7 +14,6 @@ export const validatePassword = (password) => {
   return "";
 };
 
-//  3. 비밀번호 확인 (회원가입)
 export const validateConfirmPassword = (password, confirmPassword) => {
   if (password !== confirmPassword) {
     return "비밀번호가 일치하지 않습니다.";
@@ -24,7 +21,6 @@ export const validateConfirmPassword = (password, confirmPassword) => {
   return "";
 };
 
-//  4. 이름 유효성 검사 (회원가입)
 export const validateName = (name) => {
   const nameRegex = /^[a-zA-Z0-9가-힣]{2,8}$/;
   if (!nameRegex.test(name)) {
@@ -33,7 +29,6 @@ export const validateName = (name) => {
   return "";
 };
 
-// 🔸 5. 로그인 유효성 검사
 export const validateLogin = (form) => {
   const errors = {};
   const emailError = validateEmail(form.email);
@@ -45,7 +40,6 @@ export const validateLogin = (form) => {
   return errors;
 };
 
-// 🔸 6. 회원가입 유효성 검사
 export const validateSignup = (form) => {
   const errors = {};
   const nameError = validateName(form.name);
