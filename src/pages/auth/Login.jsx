@@ -4,6 +4,9 @@ import LoginFormInputs from "../../components/FormInputs/LoginFormInputs";
 import { useSupabaseAuth, useUserContext } from "../../supabase";
 import { getRedirectUrl } from "../../utils/oauth";
 import { validateLogin } from "../../utils/validation";
+import { FiLogIn } from "react-icons/fi";
+import { RiKakaoTalkFill } from "react-icons/ri";
+import { FcGoogle } from "react-icons/fc";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -56,24 +59,27 @@ function Login() {
 
         <button
           type="submit"
-          className="w-full mt-6 py-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full font-semibold transition"
+          className="w-full mt-6 py-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full font-semibold transition flex items-center justify-center gap-2"
         >
+          <FiLogIn />
           로그인
         </button>
 
         <button
           onClick={() => loginWithKakao(getRedirectUrl())}
           type="button"
-          className="w-full mt-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-black rounded-full font-semibold transition"
+          className="w-full mt-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-black rounded-full font-semibold transition flex items-center justify-center gap-2"
         >
+          <RiKakaoTalkFill />
           카카오로 로그인
         </button>
 
         <button
           onClick={() => loginWithGoogle(getRedirectUrl())}
           type="button"
-          className="w-full mt-4 py-3 bg-white border border-gray-50 hover:bg-gray-100 text-black rounded-full font-semibold transition"
+          className="w-full mt-4 py-3 bg-white border border-gray-50 hover:bg-gray-100 text-black rounded-full font-semibold transition flex items-center justify-center gap-2"
         >
+          <FcGoogle />
           구글로 로그인
         </button>
 
