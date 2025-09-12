@@ -9,11 +9,11 @@ function SearchInput() {
   const debouncedSearchQuery = useDebounce(searchQuery, 500); // 500ms debounce
 
   useEffect(() => {
-    // Only fetch results for debounced query, do not navigate here
     if (debouncedSearchQuery) {
       fetchSearchResults(debouncedSearchQuery);
+      navigate(`/search?query=${debouncedSearchQuery}`); // Navigate to search results page on debounced input
     }
-  }, [debouncedSearchQuery, fetchSearchResults]);
+  }, [debouncedSearchQuery, fetchSearchResults, navigate]);
 
   const handleSearch = () => {
     if (searchQuery) {
