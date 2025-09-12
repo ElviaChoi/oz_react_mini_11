@@ -2,7 +2,8 @@ function Avatar({ user, size = "md", onClick }) {
   const sizeMap = {
     sm: "w-10 h-10 text-sm",
     md: "w-16 h-16 text-xl",
-    lg: "w-36 h-36 text-4xl",
+    lg: "w-24 h-24 text-2xl",
+    xl: "w-36 h-36 text-4xl",
   };
   const sizeClass = sizeMap[size] || sizeMap.md;
 

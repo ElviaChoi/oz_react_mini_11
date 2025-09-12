@@ -68,7 +68,7 @@ function MyPage() {
     <div className="min-h-screen bg-gray-950 px-4 pt-[240px] sm:pt-[140px] md:pt-[150px] pb-24 text-white">
       <div className="max-w-4xl mx-auto bg-white/5 rounded-xl backdrop-blur p-8 shadow-xl border border-white/20">
         <div className="flex flex-col sm:flex-row items-center sm:items-center gap-8">
-          <div className="w-[144px] h-[144px] mx-auto sm:mx-0">
+          <div className="mx-auto sm:mx-0">
             <Avatar user={user} size="lg" />
           </div>
 
