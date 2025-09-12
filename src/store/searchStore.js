@@ -9,6 +9,7 @@ const useSearchStore = create((set) => ({
   searchResults: [],
   isLoading: false,
   setSearchQuery: (query) => set({ searchQuery: query }),
+  setSearchResults: (results) => set({ searchResults: results }),
   fetchSearchResults: async (query) => {
     set({ isLoading: true });
     try {

@@ -27,8 +27,13 @@ export const handlers = [
     );
   }),
 
-  http.post(`${FAKE_URL}/auth/v1/token?grant_type=password`, (req) => {
-    return HttpResponse.json(mockSession, { status: 200 });
+  http.post(`${FAKE_URL}/auth/v1/token`, ({ request }) => {
+    const url = new URL(request.url);
+    if (url.searchParams.get('grant_type') === 'password') {
+      return HttpResponse.json(mockSession, { status: 200 });
+    }
+    // Fallback for other grant types if needed, or return an error
+    return HttpResponse.json({ error: 'unsupported_grant_type' }, { status: 400 });
   }),
 
   http.get(`${FAKE_URL}/auth/v1/user`, (req) => {

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Layout from "./components/Layout/index";
 import MovieList from "./pages/movies/MovieList";
 import MovieDetail from "./pages/movies/MovieDetail";
@@ -9,10 +9,13 @@ import Login from "./pages/auth/Login";
 import MyPage from "./pages/mypage/MyPage";
 
 import { useSupabaseAuth, useUserContext } from "./supabase";
+import useSearchStore from "./store/searchStore";
 
 function App() {
   const { getUserInfo } = useSupabaseAuth();
   const { setUser } = useUserContext();
+  const location = useLocation();
+  const { setSearchQuery, setSearchResults } = useSearchStore();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -23,6 +26,13 @@ function App() {
     };
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    if (!location.pathname.startsWith("/search")) {
+      setSearchQuery("");
+      setSearchResults([]);
+    }
+  }, [location.pathname, setSearchQuery, setSearchResults]);
 
   return (
     <Routes>
