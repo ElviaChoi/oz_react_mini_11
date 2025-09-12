@@ -54,37 +54,34 @@ function MovieList() {
     [hasMore, loading]
   );
 
-  // 스크롤 이벤트 등록
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
   return (
-    <div className="pt-[220px] sm:pt-[120px] md:pt-[120px] min-h-[calc(100vh+100px)] bg-gray-950 px-4 sm:px-6 lg:px-8 space-y-16 pb-24">
-      {/* 🎬 추천 영화 섹션 */}
+    <div className='pt-[220px] sm:pt-[120px] md:pt-[120px] min-h-[calc(100vh+100px)] bg-gray-950 px-4 sm:px-6 lg:px-8 space-y-16 pb-24'>
       <section>
-        <h2 className="font-bold text-[34px] text-center text-white mb-2 pt-6">
+        <h2 className='font-bold text-[34px] text-center text-white mb-2 pt-6'>
           🎬 오늘의 추천 영화 🎬
         </h2>
-        <p className="text-center text-sky-400 text-lg mb-10">
+        <p className='text-center text-sky-400 text-lg mb-10'>
           Pickflix가 엄선한 지금 꼭 봐야 할 영화!
         </p>
         <MovieSlide movies={movies.slice(0, 12)} />
       </section>
 
-      {/* 📈 인기 영화 리스트 */}
       <section>
-        <h2 className="text-[30px] font-bold text-white text-center mb-6 tracking-tight">
+        <h2 className='text-[30px] font-bold text-white text-center mb-6 tracking-tight'>
           📈 지금 인기 있는 영화 📈
         </h2>
-        <p className="text-center text-sky-400 mb-10 text-base">
+        <p className='text-center text-sky-400 mb-10 text-base'>
           실시간으로 가장 많은 추천을 받은 작품들을 모았습니다.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 max-w-screen-xl mx-auto px-4">
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 max-w-screen-xl mx-auto px-4'>
           {movies.map((movie) => (
-            <div className="flex justify-center" key={movie.id}>
+            <div className='flex justify-center' key={movie.id}>
               <MovieCard
                 id={movie.id}
                 title={movie.title}
@@ -95,10 +92,9 @@ function MovieList() {
           ))}
         </div>
 
-        {/* 로딩 및 종료 메시지 */}
-        {loading && <p className="text-center text-sky-400 mt-8">로딩 중...</p>}
+        {loading && <p className='text-center text-sky-400 mt-8'>로딩 중...</p>}
         {!hasMore && (
-          <p className="text-center text-gray-500 mt-8">
+          <p className='text-center text-gray-500 mt-8'>
             더 이상 불러올 영화가 없습니다.
           </p>
         )}
