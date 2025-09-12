@@ -36,6 +36,22 @@ export const handlers = [
     return HttpResponse.json({ error: 'unsupported_grant_type' }, { status: 400 });
   }),
 
+  http.put(`${FAKE_URL}/auth/v1/user`, async ({ request }) => {
+    const { data } = await request.json();
+    const updatedUserName = data.user_name;
+
+    if (updatedUserName) {
+      mockUser.user_metadata.user_name = updatedUserName;
+      // Return a response that mimics Supabase's successful update response
+      return HttpResponse.json({ user: mockUser }, { status: 200 });
+    } else {
+      return HttpResponse.json(
+        { error: 'invalid_argument', error_description: 'user_name is required' },
+        { status: 400 }
+      );
+    }
+  }),
+
   http.get(`${FAKE_URL}/auth/v1/user`, (req) => {
     const authHeader = req.headers.get('Authorization');
     if (authHeader === `Bearer fake-anon-key`) {
