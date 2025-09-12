@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SignupFormInputs from "../../components/FormInputs/SignupFormInputs";
 import { useSupabaseAuth } from "../../supabase";
 import { validateSignup } from "../../utils/validation";
+import { FiUserPlus } from "react-icons/fi";
 
 function Signup() {
   const [form, setForm] = useState({
@@ -62,7 +63,8 @@ function Signup() {
 
         <SignupFormInputs form={form} errors={errors} onChange={handleChange} />
 
-        <button className="w-full mt-6 py-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full font-semibold transition">
+        <button className="w-full mt-6 py-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full font-semibold transition flex items-center justify-center gap-2">
+          <FiUserPlus />
           회원가입
         </button>
       </form>
