@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useSearchStore from '../../store/searchStore';
 import useDebounce from '../../hooks/useDebounce';
@@ -8,14 +8,16 @@ function SearchInput() {
   const location = useLocation();
   const { searchQuery, setSearchQuery, fetchSearchResults } = useSearchStore();
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
+  const prevQueryRef = useRef(debouncedSearchQuery);
 
   useEffect(() => {
-    if (debouncedSearchQuery) {
-      if (location.pathname === '/') {
+    if (debouncedSearchQuery && debouncedSearchQuery !== prevQueryRef.current) {
+      if (location.pathname === '/' || location.pathname.startsWith('/details')) {
         navigate(`/search?query=${debouncedSearchQuery}`);
       }
       fetchSearchResults(debouncedSearchQuery);
     }
+    prevQueryRef.current = debouncedSearchQuery;
   }, [debouncedSearchQuery, fetchSearchResults, navigate, location.pathname]);
 
   const handleSearch = () => {
