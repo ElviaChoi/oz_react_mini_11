@@ -1,7 +1,22 @@
 import { useSupabase } from "../context/UserContext";
 
 export const useOAuth = () => {
-  const supabase = useSupabase();
+  let supabase;
+  try {
+    supabase = useSupabase();
+  } catch (error) {
+    const mockAuth = (provider) => () => {
+      console.warn(
+        `Supabase not initialized. OAuth with '${provider}' is disabled.`
+      );
+      return Promise.resolve({ data: null, error: { message: "Supabase not initialized." } });
+    };
+    return {
+      loginWithKakao: mockAuth("Kakao"),
+      loginWithGoogle: mockAuth("Google"),
+    };
+  }
+
   // 카카오 로그인
   const loginWithKakao = async (redirectTo = null, ...otherOptions) => {
     try {

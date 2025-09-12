@@ -7,7 +7,23 @@ import {
 } from "../utilities";
 
 export const useEmailAuth = () => {
-  const supabase = useSupabase();
+  let supabase;
+  try {
+    supabase = useSupabase();
+  } catch (error) {
+    const mockAuth = (action) => () => {
+      console.warn(
+        `Supabase not initialized. Email auth function '${action}' is disabled.`
+      );
+      return Promise.resolve({ data: null, error: { message: "Supabase not initialized." } });
+    };
+    return {
+      signUp: mockAuth("signUp"),
+      login: mockAuth("login"),
+      updateUserName: mockAuth("updateUserName"),
+    };
+  }
+
   const { setItemToLocalStorage } = localStorageUtils();
 
   // 회원가입

@@ -7,7 +7,18 @@ import {
 } from "../utilities";
 
 export const useAuth = () => {
-  const supabase = useSupabase();
+  let supabase;
+  try {
+    supabase = useSupabase();
+  } catch (error) {
+    // Supabase is not initialized, return mock functions
+    const mockAuth = () => {
+      console.warn("Supabase not initialized. Auth functions are disabled.");
+      return Promise.resolve({ data: null, error: null });
+    };
+    return { logout: mockAuth, getUserInfo: mockAuth };
+  }
+
   const {
     getItemFromLocalStorage,
     removeItemFromLocalStorage,

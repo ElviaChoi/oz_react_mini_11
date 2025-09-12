@@ -12,7 +12,6 @@ function MovieList() {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  // 영화 데이터 호출 함수
   const fetchMovies = async (pageNum) => {
     setLoading(true);
     try {
@@ -38,12 +37,10 @@ function MovieList() {
     }
   };
 
-  //  컴포넌트 진입 시 초기 데이터 로딩
   useEffect(() => {
     fetchMovies(page);
   }, [page]);
 
-  //  스크롤 이벤트 핸들러 (throttle 적용)
   const handleScroll = useCallback(
     useThrottle(() => {
       const scrollTop = window.scrollY;
