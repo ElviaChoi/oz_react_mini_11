@@ -1,24 +1,27 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useSearchStore from '../../store/searchStore';
 import useDebounce from '../../hooks/useDebounce';
 
 function SearchInput() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { searchQuery, setSearchQuery, fetchSearchResults } = useSearchStore();
-  const debouncedSearchQuery = useDebounce(searchQuery, 500); // 500ms debounce
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
   useEffect(() => {
     if (debouncedSearchQuery) {
+      if (location.pathname === '/') {
+        navigate(`/search?query=${debouncedSearchQuery}`);
+      }
       fetchSearchResults(debouncedSearchQuery);
-      navigate(`/search?query=${debouncedSearchQuery}`); // Navigate to search results page on debounced input
     }
-  }, [debouncedSearchQuery, fetchSearchResults, navigate]);
+  }, [debouncedSearchQuery, fetchSearchResults, navigate, location.pathname]);
 
   const handleSearch = () => {
     if (searchQuery) {
-      fetchSearchResults(searchQuery); // Update store with immediate search
-      navigate(`/search?query=${searchQuery}`); // Navigate to search results page
+      fetchSearchResults(searchQuery);
+      navigate(`/search?query=${searchQuery}`);
     }
   };
 

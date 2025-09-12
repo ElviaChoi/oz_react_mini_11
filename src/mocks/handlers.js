@@ -2,7 +2,6 @@ import { http, HttpResponse } from 'msw';
 
 const FAKE_URL = "https://fake.supabase.co";
 
-// Mock user data
 const mockUser = {
   id: 'a7a7e782-de2b-449a-a403-564b0b98b46a',
   email: 'mock.user@example.com',
@@ -12,7 +11,6 @@ const mockUser = {
   }
 };
 
-// Mock session data
 const mockSession = {
   access_token: 'fake-access-token',
   token_type: 'bearer',
@@ -22,22 +20,17 @@ const mockSession = {
 };
 
 export const handlers = [
-  // Mock for email signup
   http.post(`${FAKE_URL}/auth/v1/signup`, (req) => {
-    // const { email, password } = await req.json(); // Removed for debugging
     return HttpResponse.json(
       { ...mockSession, user: { ...mockUser, email: 'mock.user@example.com' } },
       { status: 200 }
     );
   }),
 
-  // Mock for email login
   http.post(`${FAKE_URL}/auth/v1/token?grant_type=password`, (req) => {
-    // const body = await req.json(); // Removed for debugging
     return HttpResponse.json(mockSession, { status: 200 });
   }),
 
-  // Mock for getting user
   http.get(`${FAKE_URL}/auth/v1/user`, (req) => {
     const authHeader = req.headers.get('Authorization');
     if (authHeader === `Bearer fake-anon-key`) {

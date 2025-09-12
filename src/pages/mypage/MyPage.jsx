@@ -35,7 +35,7 @@ function MyPage() {
           return response.data;
         } catch (error) {
           console.error("Error fetching movie detail for ID:", id, error);
-          return null; // Or handle error as appropriate
+          return null;
         }
       });
       const results = await Promise.all(bookmarkFetchTasks);
