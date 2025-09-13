@@ -4,6 +4,7 @@ import { useUserContext } from "../../supabase";
 import useBookmark from "../../hooks/useBookmark";
 import { MdPushPin, MdOutlinePushPin } from "react-icons/md";
 import { useToast } from "../../components/Toast";
+import { PATHS } from "../../constants";
 
 function MovieCard({ id, title, posterPath, voteAverage, onBookmarkChange }) {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function MovieCard({ id, title, posterPath, voteAverage, onBookmarkChange }) {
   const { isBookmarked, addBookmark, removeBookmark } = useBookmark(id);
 
   const handleClick = () => {
-    navigate(`/details/${id}`);
+    navigate(`${PATHS.MOVIE_DETAIL}/${id}`);
   };
 
   const handleBookmarkClick = (e) => {

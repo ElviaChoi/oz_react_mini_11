@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginFormInputs from "../../components/FormInputs/LoginFormInputs";
 import { useSupabaseAuth, useUserContext } from "../../supabase";
@@ -8,28 +7,22 @@ import { FiLogIn } from "react-icons/fi";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
 import { useToast } from "../../components/Toast";
+import { PATHS } from "../../constants";
+import useAuthForm from "../../hooks/useAuthForm";
+import AuthLayout from "../../components/auth/AuthLayout";
 
 const baseButtonClasses = "w-full py-3 rounded-full font-semibold transition flex items-center justify-center gap-2";
 
 function Login() {
-  const [form, setForm] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState({});
+  const { form, errors, handleChange, validate } = useAuthForm(
+    { email: "", password: "" },
+    validateLogin
+  );
 
   const navigate = useNavigate();
   const { login, loginWithKakao, loginWithGoogle } = useSupabaseAuth();
   const { setUser } = useUserContext();
   const { showToast } = useToast();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const validate = () => {
-    const newErrors = validateLogin(form);
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,63 +31,53 @@ function Login() {
     try {
       const res = await login({ email: form.email, password: form.password });
       if (res?.user) setUser(res.user);
-      navigate("/");
+      navigate(PATHS.HOME);
     } catch (error) {
       showToast(`로그인 실패: ${error.message}`, "error");
     }
   };
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center flex items-center justify-center px-4 py-10"
-      style={{ backgroundImage: "url('/images/MoviePoster.jpg')" }}
+    <AuthLayout
+      title="로그인"
+      bgImage="/images/MoviePoster.jpg"
+      onSubmit={handleSubmit}
     >
-      <div className="absolute inset-0 backdrop-blur bg-black/40 z-0" />
+      <LoginFormInputs form={form} errors={errors} onChange={handleChange} />
 
-      <form
-        onSubmit={handleSubmit}
-        className="relative z-10 bg-white/90 backdrop-blur-sm w-full max-w-md p-8 rounded-xl shadow-lg hover:shadow-2xl hover:ring-1 hover:ring-sky-700 hover:drop-shadow-[0_0_15px_rgba(56,189,248,0.4)] transition-all duration-300"
+      <button
+        type="submit"
+        className={`${baseButtonClasses} mt-6 bg-sky-400 hover:bg-sky-500 text-black`}
       >
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-          로그인
-        </h2>
+        <FiLogIn />
+        로그인
+      </button>
 
-        <LoginFormInputs form={form} errors={errors} onChange={handleChange} />
+      <button
+        onClick={() => loginWithKakao(getRedirectUrl())}
+        type="button"
+        className={`${baseButtonClasses} mt-4 bg-yellow-300 hover:bg-yellow-400 text-black`}
+      >
+        <RiKakaoTalkFill />
+        카카오로 로그인
+      </button>
 
-        <button
-          type="submit"
-          className={`${baseButtonClasses} mt-6 bg-sky-400 hover:bg-sky-500 text-black`}
-        >
-          <FiLogIn />
-          로그인
-        </button>
+      <button
+        onClick={() => loginWithGoogle(getRedirectUrl())}
+        type="button"
+        className={`${baseButtonClasses} mt-4 bg-white border border-gray-50 hover:bg-gray-100 text-black`}
+      >
+        <FcGoogle />
+        구글로 로그인
+      </button>
 
-        <button
-          onClick={() => loginWithKakao(getRedirectUrl())}
-          type="button"
-          className={`${baseButtonClasses} mt-4 bg-yellow-300 hover:bg-yellow-400 text-black`}
-        >
-          <RiKakaoTalkFill />
-          카카오로 로그인
-        </button>
-
-        <button
-          onClick={() => loginWithGoogle(getRedirectUrl())}
-          type="button"
-          className={`${baseButtonClasses} mt-4 bg-white border border-gray-50 hover:bg-gray-100 text-black`}
-        >
-          <FcGoogle />
-          구글로 로그인
-        </button>
-
-        <p className="text-center mt-6 text-sm text-gray-600">
-          Pickflix가 처음이신가요?{" "}
-          <a href="/signup" className="text-sky-400 underline font-semibold">
-            간편 가입
-          </a>
-        </p>
-      </form>
-    </div>
+      <p className="text-center mt-6 text-sm text-gray-600">
+        Pickflix가 처음이신가요?{" "}
+        <a href={PATHS.SIGNUP} className="text-sky-400 underline font-semibold">
+          간편 가입
+        </a>
+      </p>
+    </AuthLayout>
   );
 }
 

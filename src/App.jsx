@@ -10,6 +10,7 @@ import MyPage from "./pages/mypage/MyPage";
 
 import { useSupabaseAuth, useUserContext } from "./supabase";
 import useSearchStore from "./store/searchStore";
+import { PATHS } from "./constants";
 
 function App() {
   const { getUserInfo } = useSupabaseAuth();
@@ -28,7 +29,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!location.pathname.startsWith("/search")) {
+    if (!location.pathname.startsWith(PATHS.SEARCH)) {
       setSearchQuery("");
       setSearchResults([]);
     }
@@ -36,14 +37,14 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/signup' element={<Signup />} />
-      <Route path='/login' element={<Login />} />
+      <Route path={PATHS.SIGNUP} element={<Signup />} />
+      <Route path={PATHS.LOGIN} element={<Login />} />
 
       <Route element={<Layout />}>
-        <Route path='/' element={<MovieList />} />
-        <Route path='/details/:id' element={<MovieDetail />} />
-        <Route path='/search' element={<SearchResult />} />
-        <Route path='/mypage' element={<MyPage />} />
+        <Route path={PATHS.HOME} element={<MovieList />} />
+        <Route path={`${PATHS.MOVIE_DETAIL}/:id`} element={<MovieDetail />} />
+        <Route path={PATHS.SEARCH} element={<SearchResult />} />
+        <Route path={PATHS.MYPAGE} element={<MyPage />} />
       </Route>
     </Routes>
   );

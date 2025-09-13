@@ -2,16 +2,17 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import SearchInput from "./SearchInput";
 import UserMenu from "./UserMenu";
+import { PATHS } from "../../constants";
 
 function NavBar() {
   const navigate = useNavigate();
   const location = useLocation();
 
   const onHomeOrSearchPage =
-    location.pathname === "/" || location.pathname.startsWith("/search");
+    location.pathname === PATHS.HOME || location.pathname.startsWith(PATHS.SEARCH);
 
   const handleLogoClick = () => {
-    navigate("/");
+    navigate(PATHS.HOME);
   };
 
   return (

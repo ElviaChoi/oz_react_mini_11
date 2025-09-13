@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserContext, useSupabaseAuth } from "../../supabase";
 import Avatar from "../common/Avatar";
+import { PATHS } from "../../constants";
 
 function UserMenu() {
   const navigate = useNavigate();
@@ -19,13 +20,13 @@ function UserMenu() {
     return (
       <div className="flex items-center space-x-2">
         <button
-          onClick={() => navigate("/login")}
+          onClick={() => navigate(PATHS.LOGIN)}
           className="bg-sky-400 hover:bg-sky-500 text-black mt-1.5 mr-4 px-4 py-1 sm:px-5 sm:py-2 rounded-full font-semibold text-sm sm:text-base"
         >
           로그인
         </button>
         <button
-          onClick={() => navigate("/signup")}
+          onClick={() => navigate(PATHS.SIGNUP)}
           className="bg-sky-400 hover:bg-sky-500 text-black mt-1.5 px-4 py-1 sm:px-5 sm:py-2 rounded-full font-semibold text-sm sm:text-base"
         >
           회원가입
@@ -44,7 +45,7 @@ function UserMenu() {
         <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow z-50">
           <button
             onClick={() => {
-              navigate("/mypage");
+              navigate(PATHS.MYPAGE);
               setMenuOpen(false);
             }}
             className="block w-full px-4 py-2 hover:bg-gray-100 text-left"
@@ -56,7 +57,7 @@ function UserMenu() {
               await logout();
               setUser(null);
               setMenuOpen(false);
-              navigate("/");
+              navigate(PATHS.HOME);
             }}
             className="block w-full px-4 py-2 hover:bg-gray-100 text-left"
           >

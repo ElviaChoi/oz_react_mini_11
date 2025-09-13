@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useSearchStore from '../../store/searchStore';
 import useDebounce from '../../hooks/useDebounce';
+import { PATHS } from '../../constants';
 
 function SearchInput() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function SearchInput() {
 
   useEffect(() => {
     if (debouncedSearchQuery && debouncedSearchQuery !== prevQueryRef.current) {
-      navigate(`/search?query=${debouncedSearchQuery}`);
+      navigate(`${PATHS.SEARCH}?query=${debouncedSearchQuery}`);
       fetchSearchResults(debouncedSearchQuery);
     }
     prevQueryRef.current = debouncedSearchQuery;
@@ -21,7 +22,7 @@ function SearchInput() {
   const handleSearch = () => {
     if (searchQuery) {
       fetchSearchResults(searchQuery);
-      navigate(`/search?query=${searchQuery}`);
+      navigate(`${PATHS.SEARCH}?query=${searchQuery}`);
     }
   };
 
