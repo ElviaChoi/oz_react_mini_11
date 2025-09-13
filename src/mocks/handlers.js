@@ -1,4 +1,12 @@
-import { http, HttpResponse } from "msw";
+import { http, HttpResponse, delay } from 'msw';
+import { movies } from './data';
+
+export const handlers = [
+  http.get('/movies', async () => {
+    await delay(1000);
+    return HttpResponse.json(movies);
+  }),
+];
 
 const FAKE_URL = "https://fake.supabase.co";
 
