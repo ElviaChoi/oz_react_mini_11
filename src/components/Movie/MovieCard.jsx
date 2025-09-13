@@ -31,7 +31,7 @@ function MovieCard({ id, title, posterPath, voteAverage, onBookmarkChange }) {
     }
 
     if (onBookmarkChange) {
-      onBookmarkChange(); // 상위 컴포넌트에 변경 알림
+      onBookmarkChange();
     }
   };
 
