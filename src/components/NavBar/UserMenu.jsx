@@ -40,15 +40,22 @@ function UserMenu() {
         user={user}
         size="md"
         onClick={() => setMenuOpen((prev) => !prev)}
+        ariaLabel="사용자 메뉴 토글"
+        ariaHasPopup="true"
+        ariaExpanded={menuOpen}
       />
       {menuOpen && (
-        <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow z-50">
+        <div
+          className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow z-50"
+          role="menu"
+        >
           <button
             onClick={() => {
               navigate(PATHS.MYPAGE);
               setMenuOpen(false);
             }}
             className="block w-full px-4 py-2 hover:bg-gray-100 text-left"
+            role="menuitem"
           >
             마이페이지
           </button>
@@ -60,6 +67,7 @@ function UserMenu() {
               navigate(PATHS.HOME);
             }}
             className="block w-full px-4 py-2 hover:bg-gray-100 text-left"
+            role="menuitem"
           >
             로그아웃
           </button>
