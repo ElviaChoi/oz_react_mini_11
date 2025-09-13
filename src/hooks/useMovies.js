@@ -15,9 +15,16 @@ const useMovies = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(getPopularMoviesUrl(pageNum), TMDB_GET_OPTION);
-      if (!res.ok) throw new Error('Failed to fetch movies');
-      const data = await res.json();
+      const fetchPromise = fetch(getPopularMoviesUrl(pageNum), TMDB_GET_OPTION)
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch movies');
+          return res.json();
+        });
+
+      const minDelayPromise = new Promise(resolve => setTimeout(resolve, 300)); // 300ms minimum delay
+
+      const [data] = await Promise.all([fetchPromise, minDelayPromise]);
+
       const filtered = filterSafeMovies(data.results);
 
       if (filtered.length === 0) {

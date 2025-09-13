@@ -1,0 +1,32 @@
+export const movies = [
+  {
+    id: 1,
+    title: "The Movie Title 1",
+    poster_path: "/images/MoviePoster.jpg",
+    overview: "This is a brief overview of the first mock movie. It's an exciting film!",
+    release_date: "2023-01-15",
+    vote_average: 8.5,
+    adult: false,
+    genre_ids: [],
+  },
+  {
+    id: 2,
+    title: "Another Great Film",
+    poster_path: "/images/MoviePoster.jpg",
+    overview: "A captivating story that will keep you on the edge of your seat.",
+    release_date: "2023-03-22",
+    vote_average: 7.9,
+    adult: false,
+    genre_ids: [],
+  },
+  {
+    id: 3,
+    title: "Adventure Time",
+    poster_path: "/images/MoviePoster.jpg",
+    overview: "Join us on an epic adventure across mystical lands.",
+    release_date: "2023-06-01",
+    vote_average: 9.1,
+    adult: false,
+    genre_ids: [],
+  },
+];

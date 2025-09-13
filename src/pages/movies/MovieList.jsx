@@ -25,7 +25,17 @@ function MovieList() {
         <p className='text-center text-sky-400 text-lg mb-10'>
           Pickflix가 엄선한 지금 꼭 봐야 할 영화!
         </p>
-        <MovieSlide movies={movies.slice(0, 12)} />
+        {initialLoading ? (
+          <div className='flex overflow-x-auto space-x-4 px-4 pb-4'>
+            {Array.from({ length: 12 }).map((_, index) => (
+              <div key={index} className='flex-shrink-0 w-[240px]'>
+                <SkeletonCard />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <MovieSlide movies={movies.slice(0, 12)} />
+        )}
       </section>
 
       <section>

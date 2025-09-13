@@ -1,12 +1,5 @@
-import { http, HttpResponse, delay } from 'msw';
-import { movies } from './data';
-
-export const handlers = [
-  http.get('/movies', async () => {
-    await delay(1000);
-    return HttpResponse.json(movies);
-  }),
-];
+import { http, HttpResponse, delay } from "msw";
+import { movies } from "./data";
 
 const FAKE_URL = "https://fake.supabase.co";
 
@@ -29,6 +22,7 @@ const mockSession = {
 };
 
 export const handlers = [
+
   http.post(`${FAKE_URL}/auth/v1/signup`, (req) => {
     return HttpResponse.json(
       { ...mockSession, user: { ...mockUser, email: "mock.user@example.com" } },
@@ -41,7 +35,6 @@ export const handlers = [
     if (url.searchParams.get("grant_type") === "password") {
       return HttpResponse.json(mockSession, { status: 200 });
     }
-    // Fallback for other grant types if needed, or return an error
     return HttpResponse.json(
       { error: "unsupported_grant_type" },
       { status: 400 }
