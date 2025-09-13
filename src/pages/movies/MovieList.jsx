@@ -26,8 +26,8 @@ function MovieList() {
           Pickflix가 엄선한 지금 꼭 봐야 할 영화!
         </p>
         {initialLoading ? (
-          <div className='flex overflow-x-auto space-x-4 px-4 pb-4'>
-            {Array.from({ length: 12 }).map((_, index) => (
+          <div className='flex overflow-x-auto space-x-4 px-4 pb-4 max-w-screen-xl mx-auto justify-center'>
+            {Array.from({ length: 4 }).map((_, index) => (
               <div key={index} className='flex-shrink-0 w-[240px]'>
                 <SkeletonCard />
               </div>
