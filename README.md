@@ -17,6 +17,7 @@ src/
 ├── components/
 ├── hooks/
 ├── pages/
+├── store/
 ├── supabase/
 ├── utils/
 ├── App.jsx
@@ -34,7 +35,7 @@ src/
 - 유저 회원가입 / 로그인 / 로그아웃 (Supabase Auth)
 - 유저 프로필 및 북마크 기능
 - 성인/부적절 콘텐츠 필터링
-- **개선된 스켈레톤 UI:** 로딩 중 사용자 경험을 위한 스켈레톤 UI 적용 및 최적화 (최소 표시 시간, 크기/정렬 조정)
+- **개선된 스켈레톤 UI:** 로딩 중 사용자 경험을 위한 스켈레톤 UI 적용 및 최적화
 
 ---
 
@@ -68,7 +69,7 @@ src/
 - **TMDB API** – 영화 데이터 제공
 - **Supabase** – 인증 및 데이터 저장
 - **React Router v6** – 페이지 라우팅
-- **Context API** – 전역 유저 상태 관리
+- **Zustand & Context API** – 검색(Zustand) 및 유저 인증(Context) 등 전역 상태 관리
 - **Custom Hooks** – 디바운스, 스로틀 등 사용자 정의 훅 적용
 - **Mock Service Worker (MSW):** 개발 및 테스트 환경에서 API 요청을 모킹하여 실제 백엔드 없이도 프론트엔드 개발을 용이하게 합니다.
 - **Gemini CLI:** 개발 과정에서 코드 개선, 최적화, 문서화 등에 활용된 AI 기반 CLI 어시스턴트.
@@ -110,3 +111,6 @@ npm run dev
 ---
 
 ## ✍️ 작성자
+
+프론트엔드 미니 프로젝트: 오즈코딩스쿨 React 과정
+제출자: [최시영]
