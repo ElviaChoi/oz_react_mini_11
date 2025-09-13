@@ -53,12 +53,12 @@ function MovieCard({ id, title, posterPath, voteAverage, onBookmarkChange }) {
       </button>
 
       <div className='relative overflow-hidden rounded-xl shadow-lg'>
-        <img
-          src={imageUrl}
-          alt={title}
-          className='w-full h-[340px] object-cover rounded-xl group-hover:brightness-110 group-hover:blur-[1px] transition duration-300'
-        />
-      </div>
+                  <img
+                    src={imageUrl}
+                    alt={title}
+                    className='w-full h-[340px] object-cover rounded-xl group-hover:brightness-110 group-hover:blur-[1px] transition duration-300'
+                    loading="lazy"
+                  />      </div>
       <div className='mt-4 flex justify-between items-center text-white'>
         <h2 className='text-base font-semibold truncate pr-2 mr-2'>{title}</h2>
         <span className='whitespace-nowrap bg-yellow-300 text-black font-semibold px-4 py-1 text-sm rounded-lg shadow-md'>
