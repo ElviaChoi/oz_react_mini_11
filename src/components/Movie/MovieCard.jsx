@@ -1,4 +1,5 @@
-import React, { useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../../utils/apiUrls";
 import { useUserContext } from "../../supabase";
 import useBookmark from "../../hooks/useBookmark";
