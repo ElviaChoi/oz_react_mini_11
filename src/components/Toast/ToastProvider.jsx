@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 const ToastContext = createContext();
 
 export const ToastProvider = ({ children }) => {
-  const [toast, setToast] = useState(null); // { message, type }
+  const [toast, setToast] = useState(null);
 
   const showToast = useCallback((message, type = "info") => {
     setToast({ message, type });

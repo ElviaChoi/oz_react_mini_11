@@ -2,7 +2,6 @@ import { useEffect, lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Layout from "./components/Layout/index";
 
-// Lazy-loaded page components
 const MovieList = lazy(() => import("./pages/movies/MovieList"));
 const MovieDetail = lazy(() => import("./pages/movies/MovieDetail"));
 const SearchResult = lazy(() => import("./pages/search/SearchResult"));

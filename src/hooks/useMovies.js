@@ -1,8 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
-import { getPopularMoviesUrl } from '../utils/apiUrls';
-import { TMDB_GET_OPTION } from '../constants';
-import { filterSafeMovies } from '../utils/filterMovies';
-import useThrottle from './useThrottle';
+import { useState, useEffect, useCallback } from "react";
+import { getPopularMoviesUrl } from "../utils/apiUrls";
+import { TMDB_GET_OPTION } from "../constants";
+import { filterSafeMovies } from "../utils/filterMovies";
+import useThrottle from "./useThrottle";
 
 const useMovies = () => {
   const [movies, setMovies] = useState([]);
@@ -15,13 +15,17 @@ const useMovies = () => {
     setLoading(true);
     setError(null);
     try {
-      const fetchPromise = fetch(getPopularMoviesUrl(pageNum), TMDB_GET_OPTION)
-        .then(res => {
-          if (!res.ok) throw new Error('Failed to fetch movies');
-          return res.json();
-        });
+      const fetchPromise = fetch(
+        getPopularMoviesUrl(pageNum),
+        TMDB_GET_OPTION
+      ).then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch movies");
+        return res.json();
+      });
 
-      const minDelayPromise = new Promise(resolve => setTimeout(resolve, 300)); // 300ms minimum delay
+      const minDelayPromise = new Promise((resolve) =>
+        setTimeout(resolve, 300)
+      );
 
       const [data] = await Promise.all([fetchPromise, minDelayPromise]);
 
