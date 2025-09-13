@@ -48,10 +48,12 @@ src/
 ### 📸 스크린샷
 
 #### 메인 페이지
-![메인 페이지 스크린샷](public/images/mainpage.png)
+![메인페이지](https://github.com/user-attachments/assets/4f54655e-3a29-454a-bf16-092bb1f68847)
+
 
 #### 마이페이지
-![마이페이지 스크린샷](public/images/mypage.png)
+![마이페이지](https://github.com/user-attachments/assets/cc48d6df-8c1f-4e2a-9a08-146c8e08c560)
+
 
 ---
 
