@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import useSearchStore from "../../store/searchStore";
 import MovieCard from "../../components/Movie/MovieCard";
+import StatusLayout from "../../components/common/StatusLayout";
+import { TEXTS } from "../../constants";
 
 function SearchResult() {
   const [searchParams] = useSearchParams();
@@ -22,26 +24,26 @@ function SearchResult() {
           {`🎞 '${query}' 검색 결과 🎞`}
         </h2>
 
-        {isLoading ? (
-          <p className='text-center text-gray-500 text-lg mt-12'>검색 중...</p>
-        ) : searchResults.length > 0 ? (
-          <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6'>
-            {searchResults.map((movie) => (
-              <div className='flex justify-center' key={movie.id}>
-                <MovieCard
-                  id={movie.id}
-                  title={movie.title}
-                  posterPath={movie.poster_path}
-                  voteAverage={movie.vote_average}
-                />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className='text-center text-gray-500 text-lg mt-12'>
-            검색 결과가 없습니다.
-          </p>
-        )}
+        <StatusLayout isLoading={isLoading} loadingMessage={TEXTS.searching}>
+          {searchResults.length > 0 ? (
+            <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6'>
+              {searchResults.map((movie) => (
+                <div className='flex justify-center' key={movie.id}>
+                  <MovieCard
+                    id={movie.id}
+                    title={movie.title}
+                    posterPath={movie.poster_path}
+                    voteAverage={movie.vote_average}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className='text-center text-gray-500 text-lg mt-12'>
+              {TEXTS.noSearchResults}
+            </p>
+          )}
+        </StatusLayout>
       </div>
     </section>
   );

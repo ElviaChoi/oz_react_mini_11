@@ -1,69 +1,24 @@
 import { useUserContext, useSupabaseAuth } from "../../supabase";
-import { useEffect, useState, useCallback } from "react";
+import { useState } from "react";
 import MovieCard from "../../components/Movie/MovieCard";
-import { getMovieDetailUrl } from "../../utils/apiUrls";
-import { TMDB_GET_OPTION } from "../../constants";
 import Avatar from "../../components/common/Avatar";
-import axios from 'axios';
 import { useToast } from "../../components/Toast";
+import useBookmarkedMovies from "../../hooks/useBookmarkedMovies";
+import StatusLayout from "../../components/common/StatusLayout";
+import { TEXTS } from "../../constants";
 
 function MyPage() {
   const { user, setUser } = useUserContext();
   const { updateUserName } = useSupabaseAuth();
   const { showToast } = useToast();
 
-  const [loading, setLoading] = useState(true);
-  const [bookmarkIds, setBookmarkIds] = useState([]);
-  const [movies, setMovies] = useState([]);
+  const { movies, loading, error, syncBookmarks } = useBookmarkedMovies();
 
   const [editing, setEditing] = useState(false);
   const [newName, setNewName] = useState(user?.userName || "");
 
-  const syncBookmarks = useCallback(() => {
-    const saved = JSON.parse(localStorage.getItem("bookmarks")) || [];
-    setBookmarkIds(saved);
-  }, []);
-
-  useEffect(() => {
-    syncBookmarks();
-    setLoading(false);
-  }, [user, syncBookmarks]);
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      const bookmarkFetchTasks = bookmarkIds.map(async (id) => {
-        try {
-          const response = await axios.get(getMovieDetailUrl(id), TMDB_GET_OPTION);
-          return response.data;
-        } catch (error) {
-          console.error("Error fetching movie detail for ID:", id, error);
-          return null;
-        }
-      });
-      const results = await Promise.all(bookmarkFetchTasks);
-
-      setMovies(results);
-    };
-
-    if (bookmarkIds.length > 0) {
-      fetchMovies();
-    } else {
-      setMovies([]);
-    }
-  }, [bookmarkIds]);
-
-  if (loading) {
-    return (
-      <div className="text-center mt-10 text-gray-400">
-        유저 정보를 불러오는 중입니다...
-      </div>
-    );
-  }
-
   if (!user) {
-    return (
-      <div className="text-center mt-10 text-red-500">로그인이 필요합니다.</div>
-    );
+    return <div className="text-center mt-10 text-red-500">{TEXTS.loginRequired}</div>;
   }
 
   return (
@@ -87,7 +42,7 @@ function MyPage() {
                   <button
                     onClick={async () => {
                       if (newName.trim() === "") {
-                        showToast("닉네임을 입력해주세요", "error");
+                        showToast(TEXTS.enterNickname, "error");
                         return;
                       }
                       try {
@@ -95,12 +50,12 @@ function MyPage() {
                         setUser(updated.user);
                         setEditing(false);
                       } catch (err) {
-                        showToast("닉네임 변경 실패: " + err.message, "error");
+                        showToast(`${TEXTS.updateNicknameFailed}${err.message}`, "error");
                       }
                     }}
                     className="text-md text-green-400 hover:underline"
                   >
-                    저장
+                    {TEXTS.save}
                   </button>
                   <button
                     onClick={() => {
@@ -109,7 +64,7 @@ function MyPage() {
                     }}
                     className="text-md text-red-400 hover:underline"
                   >
-                    취소
+                    {TEXTS.cancel}
                   </button>
                 </>
               ) : (
@@ -121,7 +76,7 @@ function MyPage() {
                     className="text-sm text-sky-400 hover:underline"
                     onClick={() => setEditing(true)}
                   >
-                    닉네임 수정
+                    {TEXTS.updateNickname}
                   </button>
                 </>
               )}
@@ -138,7 +93,7 @@ function MyPage() {
             <button
               className="text-red-400 hover:text-red-600 text-base"
               onClick={() => {
-                if (confirm("북마크를 모두 삭제하시겠습니까?")) {
+                if (confirm(TEXTS.confirmDeleteAllBookmarks)) {
                   localStorage.removeItem("bookmarks");
                   syncBookmarks();
                 }
@@ -148,22 +103,29 @@ function MyPage() {
             </button>
           </div>
 
-          {movies.length === 0 ? (
-            <p className="text-gray-500">아직 북마크한 영화가 없습니다.</p>
-          ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
-              {movies.map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  id={movie.id}
-                  title={movie.title}
-                  posterPath={movie.poster_path}
-                  voteAverage={movie.vote_average}
-                  onBookmarkChange={syncBookmarks}
-                />
-              ))}
-            </div>
-          )}
+          <StatusLayout
+            isLoading={loading}
+            error={error}
+            loadingMessage={TEXTS.bookmarksLoading}
+            errorMessage={TEXTS.bookmarksLoadFailed}
+          >
+            {movies.length === 0 ? (
+              <p className="text-gray-500">{TEXTS.noBookmarks}</p>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                {movies.map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    id={movie.id}
+                    title={movie.title}
+                    posterPath={movie.poster_path}
+                    voteAverage={movie.vote_average}
+                    onBookmarkChange={syncBookmarks}
+                  />
+                ))}
+              </div>
+            )}
+          </StatusLayout>
         </div>
       </div>
     </div>
