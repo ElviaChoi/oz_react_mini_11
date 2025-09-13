@@ -12,13 +12,11 @@ function SearchInput() {
 
   useEffect(() => {
     if (debouncedSearchQuery && debouncedSearchQuery !== prevQueryRef.current) {
-      if (location.pathname === '/' || location.pathname.startsWith('/details') || location.pathname.startsWith('/mypage')) {
-        navigate(`/search?query=${debouncedSearchQuery}`);
-      }
+      navigate(`/search?query=${debouncedSearchQuery}`);
       fetchSearchResults(debouncedSearchQuery);
     }
     prevQueryRef.current = debouncedSearchQuery;
-  }, [debouncedSearchQuery, fetchSearchResults, navigate, location.pathname]);
+  }, [debouncedSearchQuery, fetchSearchResults, navigate]);
 
   const handleSearch = () => {
     if (searchQuery) {
