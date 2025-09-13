@@ -37,7 +37,7 @@ function App() {
   }, [location.pathname, setSearchQuery, setSearchResults]);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div role="status" aria-live="polite">Loading...</div>}>
       <Routes>
         <Route path={PATHS.SIGNUP} element={<Signup />} />
         <Route path={PATHS.LOGIN} element={<Login />} />

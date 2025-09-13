@@ -52,6 +52,7 @@ function MovieDetail() {
               <button
                 onClick={handleBookmarkClick}
                 className="absolute top-5 right-4 z-20 text-6xl"
+                aria-label={isBookmarked ? "북마크 제거" : "북마크 추가"}
               >
                 {isBookmarked ? (
                   <MdPushPin className="text-red-500" />

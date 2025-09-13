@@ -40,10 +40,12 @@ function SearchInput() {
           }}
           placeholder="영화 제목을 검색하세요"
           className="w-full pl-5 pr-10 py-2 rounded-full bg-gray-200 text-black placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-sky-400 transition"
+          aria-label="영화 제목 검색"
         />
         <button
           onClick={handleSearch}
           className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-sky-500 text-xl cursor-pointer"
+          aria-label="검색"
         >
           🔍
         </button>

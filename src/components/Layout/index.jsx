@@ -3,10 +3,14 @@ import NavBar from "../NavBar/index";
 
 function Layout() {
   return (
-    <div>
-      <NavBar />
-      <Outlet />
-    </div>
+    <>
+      <header>
+        <NavBar />
+      </header>
+      <main>
+        <Outlet />
+      </main>
+    </>
   );
 }
 
