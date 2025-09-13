@@ -1,3 +1,4 @@
+import React, { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -5,7 +6,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import { getImageUrl } from "../../utils/apiUrls";
-import { useNavigate } from "react-router-dom";
 
 function MovieSlide({ movies }) {
   const navigate = useNavigate();
@@ -54,4 +54,4 @@ function MovieSlide({ movies }) {
   );
 }
 
-export default MovieSlide;
+export default React.memo(MovieSlide);

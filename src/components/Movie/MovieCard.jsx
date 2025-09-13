@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import React, { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../../utils/apiUrls";
 import { useUserContext } from "../../supabase";
 import useBookmark from "../../hooks/useBookmark";
@@ -69,4 +69,4 @@ function MovieCard({ id, title, posterPath, voteAverage, onBookmarkChange }) {
   );
 }
 
-export default MovieCard;
+export default React.memo(MovieCard);
