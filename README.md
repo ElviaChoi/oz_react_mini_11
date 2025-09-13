@@ -48,11 +48,13 @@ src/
 ### 📸 스크린샷
 
 #### 메인 페이지
-![메인페이지](https://github.com/user-attachments/assets/4f54655e-3a29-454a-bf16-092bb1f68847)
+![메인페이지 webm](https://github.com/user-attachments/assets/42f867f1-610e-4305-9057-f45bf57bf4a1)
+
 
 
 #### 마이페이지
-![마이페이지](https://github.com/user-attachments/assets/cc48d6df-8c1f-4e2a-9a08-146c8e08c560)
+![마이페이지 webm](https://github.com/user-attachments/assets/91d135a6-f31d-4bcf-aff9-1be0925a7629)
+
 
 
 ---
