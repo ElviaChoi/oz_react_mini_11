@@ -43,12 +43,15 @@ src/
 
 ### 🚀 배포 링크
 
-[여기에 Vercel 배포 주소를 넣어주세요](YOUR_VERCEL_DEPLOYMENT_URL)
+[https://oz-react-mini-11-ecru.vercel.app/]
 
 ### 📸 스크린샷
 
-<!-- 여기에 애플리케이션의 주요 화면 스크린샷을 추가해주세요. -->
-<!-- 예시: ![메인 화면](path/to/your/screenshot1.png) -->
+#### 메인 페이지
+![메인 페이지 스크린샷](public/images/mainpage.png)
+
+#### 마이페이지
+![마이페이지 스크린샷](public/images/mypage.png)
 
 ---
 
